@@ -150,3 +150,4 @@ tests/cpp-tests/Resources/audio
 /*/*/*/*/prebuilt-mk/Android.mk
 *.xcscmblueprint
 cocos/2d/Editor_Debug.win64/
+cocos/2d/Debug.win64/
