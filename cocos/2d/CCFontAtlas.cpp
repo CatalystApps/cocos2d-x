@@ -79,7 +79,7 @@ FontAtlas::FontAtlas(Font &theFont)
             _currentPageDataSize *= 2;
         }
 
-        _currentPageData = new unsigned char[_currentPageDataSize];
+        _currentPageData = new (std::nothrow) unsigned char[_currentPageDataSize];
         memset(_currentPageData, 0, _currentPageDataSize);
 
         auto  pixelFormat = outlineSize > 0 ? Texture2D::PixelFormat::AI88 : Texture2D::PixelFormat::A8; 
@@ -110,7 +110,7 @@ FontAtlas::~FontAtlas()
 #endif
 
     _font->release();
-    relaseTextures();
+    releaseTextures();
 
     delete []_currentPageData;
 
@@ -123,13 +123,18 @@ FontAtlas::~FontAtlas()
 #endif
 }
 
-void FontAtlas::relaseTextures()
+void FontAtlas::releaseTextures()
 {
     for( auto &item: _atlasTextures)
     {
         item.second->release();
     }
     _atlasTextures.clear();
+}
+
+void FontAtlas::relaseTextures()
+{
+    releaseTextures();
 }
 
 void FontAtlas::purgeTexturesAtlas()
@@ -316,6 +321,7 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
     int adjustForExtend = _letterEdgeExtend / 2;
     long bitmapWidth;
     long bitmapHeight;
+    int glyphHeight;
     Rect tempRect;
     FontLetterDefinition tempDef;
 
@@ -335,9 +341,10 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
             tempDef.offsetX = tempRect.origin.x + adjustForDistanceMap + adjustForExtend;
             tempDef.offsetY = _fontAscender + tempRect.origin.y - adjustForDistanceMap - adjustForExtend;
 
-            if (bitmapHeight > _currLineHeight)
+            glyphHeight = static_cast<int>(bitmapHeight) + _letterPadding + _letterEdgeExtend;
+            if (glyphHeight > _currLineHeight)
             {
-                _currLineHeight = static_cast<int>(bitmapHeight) + _letterPadding + _letterEdgeExtend + 1;
+                _currLineHeight = glyphHeight;
             }
             if (_currentPageOrigX + tempDef.width > CacheTextureWidth)
             {

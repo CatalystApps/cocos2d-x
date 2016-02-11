@@ -937,7 +937,7 @@ bool jsval_to_ccarray_of_CCPoint(JSContext* cx, JS::HandleValue v, Point **point
     uint32_t len;
     JS_GetArrayLength(cx, jsobj, &len);
     
-    Point *array = new Point[len];
+    Point *array = new (std::nothrow) Point[len];
 
     for( uint32_t i=0; i< len;i++ ) {
         JS::RootedValue valarg(cx);
@@ -999,20 +999,17 @@ bool jsval_to_ccarray(JSContext* cx, JS::HandleValue v, __Array** ret)
             else if (value.isString()) {
                 JSStringWrapper valueWapper(value.toString(), cx);
                 arr->addObject(__String::create(valueWapper.get()));
-                //                CCLOG("iterate array: value = %s", valueWapper.get().c_str());
             }
             else if (value.isNumber()) {
                 double number = 0.0;
                 ok = JS::ToNumber(cx, value, &number);
                 if (ok) {
                     arr->addObject(__Double::create(number));
-                    //                    CCLOG("iterate array: value = %lf", number);
                 }
             }
             else if (value.isBoolean()) {
                 bool boolVal = JS::ToBoolean(value);
                 arr->addObject(__Bool::create(boolVal));
-                // CCLOG("iterate object: value = %d", boolVal);
             }
             else {
                 CCASSERT(false, "not supported type");
@@ -1139,7 +1136,6 @@ bool jsval_to_ccvaluemap(JSContext* cx, JS::HandleValue v, cocos2d::ValueMap* re
         {
             JSStringWrapper valueWapper(value.toString(), cx);
             dict.insert(ValueMap::value_type(keyWrapper.get(), Value(valueWapper.get())));
-            //            CCLOG("iterate object: key = %s, value = %s", keyWrapper.get().c_str(), valueWapper.get().c_str());
         }
         else if (value.isNumber())
         {
@@ -1147,14 +1143,12 @@ bool jsval_to_ccvaluemap(JSContext* cx, JS::HandleValue v, cocos2d::ValueMap* re
             bool ok = JS::ToNumber(cx, value, &number);
             if (ok) {
                 dict.insert(ValueMap::value_type(keyWrapper.get(), Value(number)));
-                // CCLOG("iterate object: key = %s, value = %lf", keyWrapper.get().c_str(), number);
             }
         }
         else if (value.isBoolean())
         {
             bool boolVal = JS::ToBoolean(value);
             dict.insert(ValueMap::value_type(keyWrapper.get(), Value(boolVal)));
-            // CCLOG("iterate object: key = %s, value = %d", keyWrapper.get().c_str(), boolVal);
         }
         else {
             CCASSERT(false, "not supported type");
@@ -1761,9 +1755,10 @@ jsval ccarray_to_jsval(JSContext* cx, __Array *arr)
         JS::RootedValue arrElement(cx);
         
         //First, check whether object is associated with js object.
-        js_proxy_t* jsproxy = js_get_or_create_proxy<cocos2d::Ref>(cx, obj);
-        if (jsproxy) {
-            arrElement = OBJECT_TO_JSVAL(jsproxy->obj);
+        js_type_class_t *typeClass = js_get_type_from_native<cocos2d::Ref>(obj);
+        auto jsobj = jsb_ref_get_or_create_jsobject(cx, obj, typeClass, "cocos2d::Ref");
+        if (jsobj) {
+            arrElement = OBJECT_TO_JSVAL(jsobj);
         }
         else {
             __String* strVal = NULL;
@@ -1812,9 +1807,10 @@ jsval ccdictionary_to_jsval(JSContext* cx, __Dictionary* dict)
         JS::RootedValue dictElement(cx);
         Ref* obj = pElement->getObject();
         //First, check whether object is associated with js object.
-        js_proxy_t* jsproxy = js_get_or_create_proxy<cocos2d::Ref>(cx, obj);
-        if (jsproxy) {
-            dictElement = OBJECT_TO_JSVAL(jsproxy->obj);
+        js_type_class_t *typeClass = js_get_type_from_native<cocos2d::Ref>(obj);
+        auto jsobj = jsb_ref_get_or_create_jsobject(cx, obj, typeClass, "cocos2d::Ref");
+        if (jsobj) {
+            dictElement = OBJECT_TO_JSVAL(jsobj);
         }
         else {
             __String* strVal = NULL;
@@ -1924,20 +1920,17 @@ bool jsval_to_ccdictionary(JSContext* cx, JS::HandleValue v, __Dictionary** ret)
         else if (value.isString()) {
             JSStringWrapper valueWapper(value.toString(), cx);
             dict->setObject(__String::create(valueWapper.get()), keyWrapper.get());
-            //            CCLOG("iterate object: key = %s, value = %s", keyWrapper.get().c_str(), valueWapper.get().c_str());
         }
         else if (value.isNumber()) {
             double number = 0.0;
             bool ok = JS::ToNumber(cx, value, &number);
             if (ok) {
                 dict->setObject(__Double::create(number), keyWrapper.get());
-                //                CCLOG("iterate object: key = %s, value = %lf", keyWrapper.get().c_str(), number);
             }
         }
         else if (value.isBoolean()) {
             bool boolVal = JS::ToBoolean(value);
             dict->setObject(__Bool::create(boolVal), keyWrapper.get());
-            // CCLOG("iterate object: key = %s, value = %d", keyWrapper.get().c_str(), boolVal);
         }
         else {
             CCASSERT(false, "not supported type");

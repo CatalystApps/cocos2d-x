@@ -115,7 +115,7 @@ static bool js_cocos2dx_ArmatureAnimation_setMovementEventCallFunc(JSContext *cx
             return true;
         }
         else if (argc == 1 || argc == 2) {
-            JSArmatureWrapper *tmpObj = new JSArmatureWrapper();
+            JSArmatureWrapper *tmpObj = new (std::nothrow) JSArmatureWrapper();
             tmpObj->autorelease();
             
             cocos2d::__Dictionary* dict = static_cast<cocos2d::__Dictionary*>(cobj->getUserObject());
@@ -161,7 +161,7 @@ static bool js_cocos2dx_ArmatureAnimation_setFrameEventCallFunc(JSContext *cx, u
             return true;
         }
         else if (argc == 1 || argc == 2) {
-            JSArmatureWrapper *tmpObj = new JSArmatureWrapper();
+            JSArmatureWrapper *tmpObj = new (std::nothrow) JSArmatureWrapper();
             tmpObj->autorelease();
             
             cocos2d::__Dictionary* dict = static_cast<cocos2d::__Dictionary*>(cobj->getUserObject());
@@ -202,7 +202,7 @@ static bool jsb_Animation_addArmatureFileInfoAsyncCallFunc(JSContext *cx, uint32
     JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
 
     if (argc == 3) {
-        JSArmatureWrapper *tmpObj = new JSArmatureWrapper();
+        JSArmatureWrapper *tmpObj = new (std::nothrow) JSArmatureWrapper();
         tmpObj->autorelease();
 
         tmpObj->setJSCallbackFunc(args.get(1));
@@ -211,13 +211,13 @@ static bool jsb_Animation_addArmatureFileInfoAsyncCallFunc(JSContext *cx, uint32
         std::string ret;
         jsval_to_std_string(cx, args.get(0), &ret);
 
-        cobj->addArmatureFileInfoAsync(ret.c_str(), tmpObj, schedule_selector(JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc));
+        cobj->addArmatureFileInfoAsync(ret, tmpObj, schedule_selector(JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc));
 
         return true;
     }
 
     if(argc == 5){
-        JSArmatureWrapper *tmpObj = new JSArmatureWrapper();
+        JSArmatureWrapper *tmpObj = new (std::nothrow) JSArmatureWrapper();
         tmpObj->autorelease();
 
         tmpObj->setJSCallbackFunc(args.get(3));
@@ -232,7 +232,7 @@ static bool jsb_Animation_addArmatureFileInfoAsyncCallFunc(JSContext *cx, uint32
         std::string configFilePath;
         jsval_to_std_string(cx ,args.get(2) , &configFilePath);
 
-        cobj->addArmatureFileInfoAsync(imagePath.c_str(), plistPath.c_str(), configFilePath.c_str(), tmpObj, schedule_selector(JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc));
+        cobj->addArmatureFileInfoAsync(imagePath, plistPath, configFilePath, tmpObj, schedule_selector(JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc));
 
         return true;
     }

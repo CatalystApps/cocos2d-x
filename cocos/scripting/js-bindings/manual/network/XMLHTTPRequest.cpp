@@ -44,7 +44,7 @@ void MinXmlHttpRequest::_gotHeader(string header)
 {
     // Get Header and Set StatusText
     // Split String into Tokens
-    char * cstr = new char [header.length()+1];
+    char * cstr = new (std::nothrow) char [header.length()+1];
     
     // check for colon.
     size_t found_header_field = header.find_first_of(":");
@@ -335,7 +335,7 @@ JS_BINDED_CLASS_GLUE_IMPL(MinXmlHttpRequest);
 JS_BINDED_CONSTRUCTOR_IMPL(MinXmlHttpRequest)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
-    MinXmlHttpRequest* req = new MinXmlHttpRequest();
+    MinXmlHttpRequest* req = new (std::nothrow) MinXmlHttpRequest();
     req->autorelease();
     
     js_proxy_t *p;
@@ -693,7 +693,7 @@ JS_BINDED_FUNC_IMPL(MinXmlHttpRequest, open)
                 cocos2d::network::HttpRequest::Type::UNKNOWN))));
 
             _httpRequest->setRequestType(requestType);
-            _httpRequest->setUrl(_url.c_str());
+            _httpRequest->setUrl(_url);
         }
         
        printf("[XMLHttpRequest] %s %s\n", _meth.c_str(), _url.c_str());

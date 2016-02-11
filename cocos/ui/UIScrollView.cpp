@@ -59,6 +59,7 @@ _rightBoundary(0.0f),
 _bePressed(false),
 _childFocusCancelOffsetInInch(MOVE_INCH),
 _touchMovePreviousTimestamp(0),
+_touchTotalTimeThreshold(0.5f),
 _autoScrolling(false),
 _autoScrollAttenuate(true),
 _autoScrollTotalTime(0),
@@ -178,19 +179,11 @@ void ScrollView::setInnerContainerSize(const Size &size)
 
     // Calculate and set the position of the inner container.
     Vec2 pos = _innerContainer->getPosition();
-    if (_innerContainer->getLeftBoundary() > 0.0f)
+    if (_innerContainer->getLeftBoundary() != 0.0f)
     {
         pos.x = _innerContainer->getAnchorPoint().x * _innerContainer->getContentSize().width;
     }
-    if (_innerContainer->getRightBoundary() < _contentSize.width)
-    {
-        pos.x = _contentSize.width - ((1.0f - _innerContainer->getAnchorPoint().x) * _innerContainer->getContentSize().width);
-    }
-    if (_innerContainer->getPosition().y > 0.0f)
-    {
-        pos.y = _innerContainer->getAnchorPoint().y * _innerContainer->getContentSize().height;
-    }
-    if (_innerContainer->getTopBoundary() < _contentSize.height)
+    if (_innerContainer->getTopBoundary() != _contentSize.height)
     {
         pos.y = _contentSize.height - (1.0f - _innerContainer->getAnchorPoint().y) * _innerContainer->getContentSize().height;
     }
@@ -336,7 +329,7 @@ Vec2 ScrollView::calculateTouchMoveVelocity() const
     {
         totalTime += timeDelta;
     }
-    if(totalTime == 0 || totalTime >= 0.5f)
+    if(totalTime == 0 || totalTime >= _touchTotalTimeThreshold)
     {
         return Vec2::ZERO;
     }
@@ -463,7 +456,7 @@ void ScrollView::startAutoScroll(const Vec2& deltaMove, float timeInSec, bool at
     _autoScrollBraking = false;
     _autoScrollBrakingStartPosition = Vec2::ZERO;
     
-    // If the destination is also out of boundary of same side, start brake from beggining.
+    // If the destination is also out of boundary of same side, start brake from beginning.
     Vec2 currentOutOfBoundary = getHowMuchOutOfBoundary();
     if(currentOutOfBoundary != Vec2::ZERO)
     {
@@ -474,6 +467,14 @@ void ScrollView::startAutoScroll(const Vec2& deltaMove, float timeInSec, bool at
             _autoScrollBraking = true;
         }
     }
+}
+
+void ScrollView::stopAutoScroll()
+{
+    _autoScrolling = false;
+    _autoScrollAttenuate = true;
+    _autoScrollTotalTime = 0;
+    _autoScrollAccumulatedTime = 0;
 }
 
 bool ScrollView::isNecessaryAutoScrollBrake()
@@ -501,6 +502,11 @@ bool ScrollView::isNecessaryAutoScrollBrake()
     return false;
 }
     
+float ScrollView::getAutoScrollStopEpsilon()
+{
+    return FLT_EPSILON;
+}
+    
 void ScrollView::processAutoScrolling(float deltaTime)
 {
     // Make auto scroll shorter if it needs to deaccelerate.
@@ -519,7 +525,7 @@ void ScrollView::processAutoScrolling(float deltaTime)
     
     // Calculate the new position
     Vec2 newPosition = _autoScrollStartPosition + (_autoScrollTargetDelta * percentage);
-    bool reachedEnd = (percentage == 1);
+    bool reachedEnd = fabs(percentage - 1) <= this->getAutoScrollStopEpsilon();
     
     if(_bounceEnabled)
     {
@@ -542,6 +548,7 @@ void ScrollView::processAutoScrolling(float deltaTime)
     if(reachedEnd)
     {
         _autoScrolling = false;
+        dispatchEvent(SCROLLVIEW_EVENT_AUTOSCROLL_ENDED, EventType::AUTOSCROLL_ENDED);
     }
 
     moveInnerContainer(newPosition - getInnerContainerPosition(), reachedEnd);
@@ -960,7 +967,8 @@ void ScrollView::interceptTouchEvent(Widget::TouchEventType event, Widget *sende
         Layout::interceptTouchEvent(event, sender, touch);
         return;
     }
-
+    if(_direction == Direction::NONE)
+        return;
     Vec2 touchPoint = touch->getLocation();
     switch (event)
     {
@@ -1310,6 +1318,16 @@ float ScrollView::getScrollBarAutoHideTime() const
         return _horizontalScrollBar->getAutoHideTime();
     }
     return 0;
+}
+    
+void ScrollView::setTouchTotalTimeThreshold(float touchTotalTimeThreshold)
+{
+    _touchTotalTimeThreshold = touchTotalTimeThreshold;
+}
+
+float ScrollView::getTouchTotalTimeThreshold() const
+{
+    return _touchTotalTimeThreshold;
 }
 
 Layout* ScrollView::getInnerContainer()const

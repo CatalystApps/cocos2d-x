@@ -113,7 +113,7 @@ void SpriteFrameCache::initializePolygonInfo(const Size &textureSize,
     
     float scaleFactor = CC_CONTENT_SCALE_FACTOR();
 
-    V3F_C4B_T2F *vertexData = new V3F_C4B_T2F[vertexCount];
+    V3F_C4B_T2F *vertexData = new (std::nothrow) V3F_C4B_T2F[vertexCount];
     for (size_t i = 0; i < vertexCount/2; i++)
     {
         vertexData[i].colors = Color4B::WHITE;
@@ -276,13 +276,17 @@ void SpriteFrameCache::addSpriteFramesWithDictionary(ValueMap& dictionary, Textu
                 initializePolygonInfo(textureSize, spriteSourceSize, vertices, verticesUV, indices, info);
                 spriteFrame->setPolygonInfo(info);
             }
+            if (frameDict.find("anchor") != frameDict.end())
+            {
+                spriteFrame->setAnchorPoint(PointFromString(frameDict["anchor"].asString()));
+            }
         }
 
         bool flag = NinePatchImageParser::isNinePatchImage(spriteFrameName);
         if(flag)
         {
             if (image == nullptr) {
-                image = new Image();
+                image = new (std::nothrow) Image();
                 image->initWithImageFile(textureFileName);
             }
             parser.setSpriteFrameInfo(image, spriteFrame->getRectInPixels(), spriteFrame->isRotated());
@@ -358,7 +362,7 @@ void SpriteFrameCache::addSpriteFramesWithFile(const std::string& plist)
         if (!texturePath.empty())
         {
             // build texture path relative to plist file
-            texturePath = FileUtils::getInstance()->fullPathFromRelativeFile(texturePath.c_str(), plist);
+            texturePath = FileUtils::getInstance()->fullPathFromRelativeFile(texturePath, plist);
         }
         else
         {
@@ -375,7 +379,7 @@ void SpriteFrameCache::addSpriteFramesWithFile(const std::string& plist)
             CCLOG("cocos2d: SpriteFrameCache: Trying to use file %s as texture", texturePath.c_str());
         }
 
-        Texture2D *texture = Director::getInstance()->getTextureCache()->addImage(texturePath.c_str());
+        Texture2D *texture = Director::getInstance()->getTextureCache()->addImage(texturePath);
 
         if (texture)
         {
@@ -688,7 +692,7 @@ bool SpriteFrameCache::reloadTexture(const std::string& plist)
     if (!texturePath.empty())
     {
         // build texture path relative to plist file
-        texturePath = FileUtils::getInstance()->fullPathFromRelativeFile(texturePath.c_str(), plist);
+        texturePath = FileUtils::getInstance()->fullPathFromRelativeFile(texturePath, plist);
     }
     else
     {
@@ -704,7 +708,7 @@ bool SpriteFrameCache::reloadTexture(const std::string& plist)
     }
 
     Texture2D *texture = nullptr;
-    if (Director::getInstance()->getTextureCache()->reloadTexture(texturePath.c_str()))
+    if (Director::getInstance()->getTextureCache()->reloadTexture(texturePath))
         texture = Director::getInstance()->getTextureCache()->getTextureForKey(texturePath);
 
     if (texture)

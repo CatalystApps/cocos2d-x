@@ -122,7 +122,7 @@ void UICCTextField::insertText(const char*  text, size_t len)
                 // password
                 if (_passwordEnabled)
                 {
-                    setPasswordText(getString().c_str());
+                    setPasswordText(getString());
                 }
                 return;
             }
@@ -146,7 +146,7 @@ void UICCTextField::insertText(const char*  text, size_t len)
     {
         if (TextFieldTTF::getCharCount() > 0)
         {
-            setPasswordText(getString().c_str());
+            setPasswordText(getString());
         }
     }
 }
@@ -160,7 +160,7 @@ void UICCTextField::deleteBackward()
         // password
         if (_passwordEnabled)
         {
-            setPasswordText(_inputText.c_str());
+            setPasswordText(_inputText);
         }
     }
 }
@@ -299,7 +299,7 @@ _useTouchArea(false),
 _textFieldEventListener(nullptr),
 _textFieldEventSelector(nullptr),
 _eventCallback(nullptr),
-_passwordStyleText(""),
+_passwordStyleText("*"),
 _textFieldRendererAdaptDirty(true),
 _fontName("Thonburi"),
 _fontSize(10),
@@ -575,6 +575,8 @@ int TextField::getMaxLength()const
 void TextField::setPasswordEnabled(bool enable)
 {
     _textFieldRenderer->setPasswordEnabled(enable);
+    if (enable)
+        setPasswordStyleText(getPasswordStyleText());
 }
 
 bool TextField::isPasswordEnabled()const
