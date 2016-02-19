@@ -282,7 +282,7 @@ static void _log(const char *format, va_list args)
         pos += MAX_LOG_LENGTH;
 
     } while (pos < len);
-    SendLogToWindow(buf);
+    //SendLogToWindow(buf);
     fflush(stdout);
 #else
     // Linux, Mac, iOS, etc
