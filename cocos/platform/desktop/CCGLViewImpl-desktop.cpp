@@ -359,7 +359,11 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
     int needWidth = rect.size.width * _frameZoomFactor;
     int neeHeight = rect.size.height * _frameZoomFactor;
 
+#if WITH_EDITOR
+    _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr, 0);
+#else
     _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr);
+#endif
 
     if (_mainWindow == nullptr)
     {
@@ -573,8 +577,9 @@ void GLViewImpl::updateFrameSize()
             {
                 _retinaFactor = 1;
             }
+#if !WITH_EDITOR
             glfwSetWindowSize(_mainWindow, _screenSize.width * _retinaFactor * _frameZoomFactor, _screenSize.height *_retinaFactor * _frameZoomFactor);
-
+#endif
             _isInRetinaMonitor = false;
         }
     }
