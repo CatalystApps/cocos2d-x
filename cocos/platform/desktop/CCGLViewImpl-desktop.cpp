@@ -359,11 +359,8 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
     int needWidth = rect.size.width * _frameZoomFactor;
     int neeHeight = rect.size.height * _frameZoomFactor;
 
-#if IN_EDITOR
     _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr, 0);
-#else
-    _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr);
-#endif
+
     if (_mainWindow == nullptr)
     {
         std::string message = "Can't create window";
