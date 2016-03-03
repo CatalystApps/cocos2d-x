@@ -362,7 +362,7 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
 #if WITH_EDITOR
     _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr, 0);
 #else
-    _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr);
+    _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr, 0);
 #endif
 
     if (_mainWindow == nullptr)
