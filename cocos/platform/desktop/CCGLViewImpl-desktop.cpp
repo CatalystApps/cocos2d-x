@@ -359,8 +359,8 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
     int needWidth = rect.size.width * _frameZoomFactor;
     int neeHeight = rect.size.height * _frameZoomFactor;
 
-#if WITH_EDITOR
-    _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr, 0);
+#if GLFW_VERSION_REVISION <= 4
+    _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr);
 #else
     _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr, 0);
 #endif
