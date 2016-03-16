@@ -196,7 +196,8 @@ void StencilStateManager::onBeforeVisit()
     
     // draw a fullscreen solid rectangle to clear the stencil buffer
     //ccDrawSolidRect(Vec2::ZERO, ccpFromSize([[Director sharedDirector] winSize]), Color4F(1, 1, 1, 1));
-    drawFullScreenQuadClearStencil();
+    //drawFullScreenQuadClearStencil();
+    glClear(GL_STENCIL_BUFFER_BIT);
     
     ///////////////////////////////////
     // DRAW CLIPPING STENCIL
