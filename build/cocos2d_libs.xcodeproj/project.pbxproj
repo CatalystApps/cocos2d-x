@@ -3938,6 +3938,10 @@
 		B603F1A91AC8EA0900A9579C /* CCTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B603F1A61AC8EA0900A9579C /* CCTerrain.cpp */; };
 		B603F1AA1AC8EA0900A9579C /* CCTerrain.h in Headers */ = {isa = PBXBuildFile; fileRef = B603F1A71AC8EA0900A9579C /* CCTerrain.h */; };
 		B603F1AB1AC8EA0900A9579C /* CCTerrain.h in Headers */ = {isa = PBXBuildFile; fileRef = B603F1A71AC8EA0900A9579C /* CCTerrain.h */; };
+		B6091FE81CB3E3D3000C25C9 /* CCConcurrentQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = B6091FE51CB3E3D3000C25C9 /* CCConcurrentQueue.h */; };
+		B6091FE91CB3E3D3000C25C9 /* CCConcurrentQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = B6091FE51CB3E3D3000C25C9 /* CCConcurrentQueue.h */; };
+		B6091FEB1CB3E84F000C25C9 /* CCConcurrentQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6091FEA1CB3E84F000C25C9 /* CCConcurrentQueue.cpp */; };
+		B6091FEC1CB3E84F000C25C9 /* CCConcurrentQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6091FEA1CB3E84F000C25C9 /* CCConcurrentQueue.cpp */; };
 		B60C5BD419AC68B10056FBDE /* CCBillBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60C5BD219AC68B10056FBDE /* CCBillBoard.cpp */; };
 		B60C5BD519AC68B10056FBDE /* CCBillBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60C5BD219AC68B10056FBDE /* CCBillBoard.cpp */; };
 		B60C5BD619AC68B10056FBDE /* CCBillBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = B60C5BD319AC68B10056FBDE /* CCBillBoard.h */; };
@@ -6672,6 +6676,8 @@
 		B603F1A71AC8EA0900A9579C /* CCTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTerrain.h; sourceTree = "<group>"; };
 		B603F1B11AC8F1FD00A9579C /* ccShader_3D_Terrain.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ccShader_3D_Terrain.frag; sourceTree = "<group>"; };
 		B603F1B21AC8F1FD00A9579C /* ccShader_3D_Terrain.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ccShader_3D_Terrain.vert; sourceTree = "<group>"; };
+		B6091FE51CB3E3D3000C25C9 /* CCConcurrentQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCConcurrentQueue.h; path = ../base/CCConcurrentQueue.h; sourceTree = "<group>"; };
+		B6091FEA1CB3E84F000C25C9 /* CCConcurrentQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCConcurrentQueue.cpp; path = ../base/CCConcurrentQueue.cpp; sourceTree = "<group>"; };
 		B60C5BD219AC68B10056FBDE /* CCBillBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCBillBoard.cpp; sourceTree = "<group>"; };
 		B60C5BD319AC68B10056FBDE /* CCBillBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBillBoard.h; sourceTree = "<group>"; };
 		B63990CA1A490AFE00B07923 /* CCAsyncTaskPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCAsyncTaskPool.cpp; path = ../base/CCAsyncTaskPool.cpp; sourceTree = "<group>"; };
@@ -7910,6 +7916,8 @@
 				50ABBE1E1925AB6F00A911A9 /* ZipUtils.h */,
 				298C75D31C0465D0006BAE63 /* CCStencilStateManager.cpp */,
 				298C75D41C0465D0006BAE63 /* CCStencilStateManager.hpp */,
+				B6091FEA1CB3E84F000C25C9 /* CCConcurrentQueue.cpp */,
+				B6091FE51CB3E3D3000C25C9 /* CCConcurrentQueue.h */,
 			);
 			name = base;
 			path = ../cocos/2d;
@@ -11637,6 +11645,7 @@
 				15AE1BA419AADFDF00C27E9E /* UILayoutManager.h in Headers */,
 				1A01C69418F57BE800EFE3A6 /* CCFloat.h in Headers */,
 				1A57034D180BD09B0088DEC7 /* tinyxml2.h in Headers */,
+				B6091FE81CB3E3D3000C25C9 /* CCConcurrentQueue.h in Headers */,
 				B6CAB4C31AF9AA1A00B9B856 /* Box.h in Headers */,
 				15AE18F519AAD35000C27E9E /* CCArmatureDefine.h in Headers */,
 				15AE188219AAD33D00C27E9E /* CCBReader.h in Headers */,
@@ -13404,6 +13413,7 @@
 				B665E3AD1AA80A6500DDB1C5 /* CCPURandomiserTranslator.h in Headers */,
 				B29A7E0A19EE1B7700872B35 /* AttachmentLoader.h in Headers */,
 				1A5701ED180BCB8C0088DEC7 /* CCTransitionPageTurn.h in Headers */,
+				B6091FE91CB3E3D3000C25C9 /* CCConcurrentQueue.h in Headers */,
 				1A5701F1180BCB8C0088DEC7 /* CCTransitionProgress.h in Headers */,
 				B29A7DCE19EE1B7700872B35 /* Slot.h in Headers */,
 				15AE1A9C19AAD40300C27E9E /* b2Settings.h in Headers */,
@@ -14569,6 +14579,7 @@
 				50ABBD5C1925AB0000A911A9 /* Vec3.cpp in Sources */,
 				1A570300180BCE890088DEC7 /* CCParallaxNode.cpp in Sources */,
 				15AE191D19AAD35000C27E9E /* CCTween.cpp in Sources */,
+				B6091FEB1CB3E84F000C25C9 /* CCConcurrentQueue.cpp in Sources */,
 				B6CAB2311AF9AA1A00B9B856 /* btCollisionWorld.cpp in Sources */,
 				15AE1A6C19AAD40300C27E9E /* b2ChainAndPolygonContact.cpp in Sources */,
 				B6CAB37B1AF9AA1A00B9B856 /* btGjkPairDetector.cpp in Sources */,
@@ -16404,6 +16415,7 @@
 				B665E24B1AA80A6500DDB1C5 /* CCPUColorAffector.cpp in Sources */,
 				B665E20F1AA80A6500DDB1C5 /* CCPUBaseForceAffector.cpp in Sources */,
 				15AE1B7419AADA9A00C27E9E /* UILoadingBar.cpp in Sources */,
+				B6091FEC1CB3E84F000C25C9 /* CCConcurrentQueue.cpp in Sources */,
 				50ABBEA41925AB6F00A911A9 /* CCScriptSupport.cpp in Sources */,
 				B6CAB3E81AF9AA1A00B9B856 /* btDiscreteDynamicsWorld.cpp in Sources */,
 				85505F0A1B60E3CE003F2CD4 /* BoneNodeReader.cpp in Sources */,

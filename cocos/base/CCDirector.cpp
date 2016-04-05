@@ -313,6 +313,8 @@ void Director::drawScene()
     _renderer->render();
 
     _eventDispatcher->dispatchEvent(_eventAfterDraw);
+    
+    _eventDispatcher->dispatchAllStoredEvents();
 
     popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 

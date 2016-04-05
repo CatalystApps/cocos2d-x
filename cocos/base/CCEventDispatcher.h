@@ -34,7 +34,10 @@
 #include "platform/CCPlatformMacros.h"
 #include "base/CCEventListener.h"
 #include "base/CCEvent.h"
+#include "base/CCEventTouch.h"
 #include "platform/CCStdC.h"
+
+#include "base/CCConcurrentQueue.h"
 
 /**
  * @addtogroup base
@@ -44,7 +47,7 @@
 NS_CC_BEGIN
 
 class Event;
-class EventTouch;
+//class EventTouch;
 class Node;
 class EventCustom;
 class EventListenerCustom;
@@ -176,6 +179,9 @@ public:
      * @param optionalUserData The optional user data, it's a void*, the default value is nullptr.
      */
     void dispatchCustomEvent(const std::string &eventName, void *optionalUserData = nullptr);
+    
+    void storeTouchEvent(EventTouch* event);
+    void dispatchAllStoredEvents();
 
     /////////////////////////////////////////////
     
@@ -327,6 +333,8 @@ protected:
 
     /** The nodes were associated with scene graph based priority listeners */
     std::set<Node*> _dirtyNodes;
+    
+    CCConcurrentQueue<EventTouch> _storedTouchEvents;
     
     /** Whether the dispatcher is dispatching event */
     int _inDispatch;

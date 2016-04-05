@@ -314,7 +314,8 @@ void GLView::handleTouchesBegin(int num, intptr_t ids[], float xs[], float ys[])
     
     touchEvent._eventCode = EventTouch::EventCode::BEGAN;
     auto dispatcher = Director::getInstance()->getEventDispatcher();
-    dispatcher->dispatchEvent(&touchEvent);
+    //dispatcher->dispatchEvent(&touchEvent);
+    dispatcher->storeTouchEvent(&touchEvent);
 }
 
 void GLView::handleTouchesMove(int num, intptr_t ids[], float xs[], float ys[])
@@ -371,7 +372,8 @@ void GLView::handleTouchesMove(int num, intptr_t ids[], float xs[], float ys[], 
     
     touchEvent._eventCode = EventTouch::EventCode::MOVED;
     auto dispatcher = Director::getInstance()->getEventDispatcher();
-    dispatcher->dispatchEvent(&touchEvent);
+    //dispatcher->dispatchEvent(&touchEvent);
+    dispatcher->storeTouchEvent(&touchEvent);
 }
 
 void GLView::handleTouchesOfEndOrCancel(EventTouch::EventCode eventCode, int num, intptr_t ids[], float xs[], float ys[])
@@ -425,8 +427,11 @@ void GLView::handleTouchesOfEndOrCancel(EventTouch::EventCode eventCode, int num
     
     touchEvent._eventCode = eventCode;
     auto dispatcher = Director::getInstance()->getEventDispatcher();
-    dispatcher->dispatchEvent(&touchEvent);
+    //dispatcher->dispatchEvent(&touchEvent);
+    dispatcher->storeTouchEvent(&touchEvent);
     
+    // TODO: some reaction
+    return;
     for (auto& touch : touchEvent._touches)
     {
         // release the touch object.

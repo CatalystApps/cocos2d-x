@@ -936,6 +936,19 @@ void EventDispatcher::dispatchCustomEvent(const std::string &eventName, void *op
     dispatchEvent(&ev);
 }
 
+void EventDispatcher::storeTouchEvent(EventTouch* event)
+{
+    _storedTouchEvents.push(*event);
+}
+
+void EventDispatcher::dispatchAllStoredEvents()
+{
+    while (!_storedTouchEvents.isEmpty())
+    {
+        EventTouch tmpEvent = _storedTouchEvents.pop();
+        dispatchEvent(&tmpEvent);
+    }
+}
 
 void EventDispatcher::dispatchTouchEvent(EventTouch* event)
 {
