@@ -50,9 +50,12 @@ Application::~Application()
 
 int Application::run()
 {
-    if (applicationDidFinishLaunching()) 
+    if (applicationDidFinishLaunching())
     {
-        [[CCDirectorCaller sharedDirectorCaller] startMainLoop];
+        //[[CCDirectorCaller sharedDirectorCaller] startMainLoop];
+        while (true) {
+            [[CCDirectorCaller sharedDirectorCaller] doCaller:nil];
+        }
     }
     return 0;
 }
