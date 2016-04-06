@@ -92,6 +92,7 @@ private:
     std::vector<Touch*> _touches;
 
     friend class GLView;
+    friend class EventDispatcher;
 };
 
 

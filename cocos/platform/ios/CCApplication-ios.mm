@@ -34,6 +34,16 @@
 
 NS_CC_BEGIN
 
+static long getCurrentMillSecond()
+{
+    long lLastTime = 0;
+    struct timeval stCurrentTime;
+    
+    gettimeofday(&stCurrentTime,NULL);
+    lLastTime = stCurrentTime.tv_sec*1000+stCurrentTime.tv_usec*0.001; //millseconds
+    return lLastTime;
+}
+
 Application* Application::sm_pSharedApplication = 0;
 
 Application::Application()
@@ -52,9 +62,22 @@ int Application::run()
 {
     if (applicationDidFinishLaunching())
     {
+        long lastTime = 0L;
+        long curTime = 0L;
+        
+        const double interval = 1000.0 / 60.0;
+        
         //[[CCDirectorCaller sharedDirectorCaller] startMainLoop];
         while (true) {
+            lastTime = getCurrentMillSecond();
+            
             [[CCDirectorCaller sharedDirectorCaller] doCaller:nil];
+            
+            curTime = getCurrentMillSecond();
+            if (curTime - lastTime < interval)
+            {
+                usleep(static_cast<useconds_t>((interval - curTime + lastTime)*1000));
+            }
         }
     }
     return 0;

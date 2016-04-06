@@ -947,6 +947,14 @@ void EventDispatcher::dispatchAllStoredEvents()
     {
         EventTouch tmpEvent = _storedTouchEvents.pop();
         dispatchEvent(&tmpEvent);
+        if (tmpEvent._eventCode == EventTouch::EventCode::ENDED || tmpEvent._eventCode == EventTouch::EventCode::CANCELLED)
+        {
+            for (auto& touch : tmpEvent._touches)
+            {
+                // release the touch object.
+                touch->release();
+            }
+        }
     }
 }
 
