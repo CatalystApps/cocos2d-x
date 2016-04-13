@@ -8,7 +8,7 @@
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>opengl32.lib;libzlib.lib;libwebp.lib;libiconv.lib;freetype.lib;winmm.lib;ws2_32.lib;libpng.lib;glfw3.lib;glew32sd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir);Editor_Debug.win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);Editor_Debug.win64;$(Configuration).win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
     <ClCompile />
