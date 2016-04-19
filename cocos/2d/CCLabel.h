@@ -166,6 +166,10 @@ public:
         const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT,
         TextVAlignment vAlignment = TextVAlignment::TOP);
 
+	static Label * createWithTTF2(const std::string& text, const std::string& fontFilePath, float fontSize,
+		const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT,
+		TextVAlignment vAlignment = TextVAlignment::TOP);
+
     /**
     * Allocates and initializes a Label, base on FreeType2.
     *
@@ -240,6 +244,7 @@ public:
      * @see `TTFConfig`
      */
     virtual bool setTTFConfig(const TTFConfig& ttfConfig);
+	virtual bool setTTFConfig2(const TTFConfig& ttfConfig);
 
     /**
      * Returns the TTF configuration object used by the Label.
@@ -610,6 +615,10 @@ CC_CONSTRUCTOR_ACCESS:
                      const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT,
                      TextVAlignment vAlignment = TextVAlignment::TOP);
 
+	bool initWithTTF2(const std::string& text, const std::string& fontFilePath, float fontSize,
+		const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT,
+		TextVAlignment vAlignment = TextVAlignment::TOP);
+
     bool initWithTTF(const TTFConfig& ttfConfig, const std::string& text,
                      TextHAlignment hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0);
 
@@ -626,6 +635,7 @@ protected:
 
     enum class LabelType {
         TTF,
+		TTF2,
         BMFONT,
         CHARMAP,
         STRING_TEXTURE
@@ -665,6 +675,7 @@ protected:
     void updateBMFontScale();
     void scaleFontSizeDown(float fontSize);
     bool setTTFConfigInternal(const TTFConfig& ttfConfig);
+	bool setTTFConfigInternal2(const TTFConfig& ttfConfig);
     void setBMFontSizeInternal(float fontSize);
     bool isHorizontalClamped(float letterPositionX, int lineInex);
     void restoreFontSize();

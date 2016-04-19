@@ -46,7 +46,7 @@ void FontAtlasCache::purgeCachedData()
     }
 }
 
-FontAtlas* FontAtlasCache::getFontAtlasTTF(const _ttfConfig* config)
+FontAtlas* FontAtlasCache::getFontAtlasTTF(const _ttfConfig* config, bool use32bitCache)
 {  
     bool useDistanceField = config->distanceFieldEnabled;
     if(config->outlineSize > 0)
@@ -59,6 +59,10 @@ FontAtlas* FontAtlasCache::getFontAtlasTTF(const _ttfConfig* config)
     std::stringstream ss;
     ss << config->outlineSize;
     atlasName.append(ss.str());
+	if (use32bitCache)
+	{
+		atlasName.append("_32bit_");
+	}
 
     auto it = _atlasMap.find(atlasName);
 
@@ -68,7 +72,7 @@ FontAtlas* FontAtlasCache::getFontAtlasTTF(const _ttfConfig* config)
             config->customGlyphs, useDistanceField, config->outlineSize);
         if (font)
         {
-            auto tempAtlas = font->createFontAtlas();
+            auto tempAtlas = (use32bitCache ? font->createFontAtlas32bit() : font->createFontAtlas());
             if (tempAtlas)
             {
                 _atlasMap[atlasName] = tempAtlas;

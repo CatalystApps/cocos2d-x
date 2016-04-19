@@ -228,6 +228,20 @@ Label* Label::createWithTTF(const std::string& text, const std::string& fontFile
     return nullptr;
 }
 
+Label* Label::createWithTTF2(const std::string& text, const std::string& fontFile, float fontSize, const Size& dimensions /* = Size::ZERO */, TextHAlignment hAlignment /* = TextHAlignment::LEFT */, TextVAlignment vAlignment /* = TextVAlignment::TOP */)
+{
+	auto ret = new (std::nothrow) Label(hAlignment, vAlignment);
+
+	if (ret && ret->initWithTTF2(text, fontFile, fontSize, dimensions, hAlignment, vAlignment))
+	{
+		ret->autorelease();
+		return ret;
+	}
+
+	CC_SAFE_DELETE(ret);
+	return nullptr;
+}
+
 Label* Label::createWithTTF(const TTFConfig& ttfConfig, const std::string& text, TextHAlignment hAlignment /* = TextHAlignment::CENTER */, int maxLineWidth /* = 0 */)
 {
     auto ret = new (std::nothrow) Label(hAlignment);
@@ -334,6 +348,22 @@ bool Label::initWithTTF(const std::string& text, const std::string& fontFilePath
     return false;
 }
 
+bool Label::initWithTTF2(const std::string& text, const std::string& fontFilePath, float fontSize,
+	const Size& dimensions, TextHAlignment hAlignment, TextVAlignment vAlignment)
+{
+	if (FileUtils::getInstance()->isFileExist(fontFilePath))
+	{
+		TTFConfig ttfConfig(fontFilePath, fontSize, GlyphCollection::DYNAMIC);
+		if (setTTFConfig2(ttfConfig))
+		{
+			setDimensions(dimensions.width, dimensions.height);
+			setString(text);
+		}
+		return true;
+	}
+	return false;
+}
+
 bool Label::initWithTTF(const TTFConfig& ttfConfig, const std::string& text, TextHAlignment hAlignment, int maxLineWidth)
 {
     if (FileUtils::getInstance()->isFileExist(ttfConfig.fontFilePath) && setTTFConfig(ttfConfig))
@@ -399,7 +429,7 @@ Label::Label(TextHAlignment hAlignment /* = TextHAlignment::LEFT */,
 #endif
 
     _purgeTextureListener = EventListenerCustom::create(FontAtlas::CMD_PURGE_FONTATLAS, [this](EventCustom* event){
-        if (_fontAtlas && _currentLabelType == LabelType::TTF && event->getUserData() == _fontAtlas)
+        if (_fontAtlas && (_currentLabelType == LabelType::TTF || _currentLabelType == LabelType::TTF2) && event->getUserData() == _fontAtlas)
         {
             for (auto&& it : _letters)
             {
@@ -416,7 +446,7 @@ Label::Label(TextHAlignment hAlignment /* = TextHAlignment::LEFT */,
     _eventDispatcher->addEventListenerWithFixedPriority(_purgeTextureListener, 1);
     
     _resetTextureListener = EventListenerCustom::create(FontAtlas::CMD_RESET_FONTATLAS, [this](EventCustom* event){
-        if (_fontAtlas && _currentLabelType == LabelType::TTF && event->getUserData() == _fontAtlas)
+        if (_fontAtlas && (_currentLabelType == LabelType::TTF || _currentLabelType == LabelType::TTF2)  && event->getUserData() == _fontAtlas)
         {
             _fontAtlas = nullptr;
             this->setTTFConfig(_fontConfig);
@@ -496,7 +526,7 @@ void Label::reset()
     _vAlignment = TextVAlignment::TOP;
 
     _effectColorF = Color4F::BLACK;
-    _textColor = Color4B::WHITE;
+	_textColor = Color4B::WHITE;
     _textColorF = Color4F::WHITE;
     setColor(Color3B::WHITE);
 
@@ -604,6 +634,12 @@ bool Label::setTTFConfig(const TTFConfig& ttfConfig)
     return setTTFConfigInternal(ttfConfig);
 }
 
+bool Label::setTTFConfig2(const TTFConfig& ttfConfig)
+{
+	_originalFontSize = ttfConfig.fontSize;
+	return setTTFConfigInternal2(ttfConfig);
+}
+
 bool Label::setBMFontFilePath(const std::string& bmfontFilePath, const Vec2& imageOffset, float fontSize)
 {
     FontAtlas *newAtlas = FontAtlasCache::getFontAtlasFNT(bmfontFilePath,imageOffset);
@@ -695,7 +731,7 @@ void Label::setDimensions(float width, float height)
 
 void Label::restoreFontSize()
 {
-    if(_currentLabelType == LabelType::TTF){
+    if(_currentLabelType == LabelType::TTF || _currentLabelType == LabelType::TTF2){
         auto ttfConfig = this->getTTFConfig();
         ttfConfig.fontSize = _originalFontSize;
         this->setTTFConfigInternal(ttfConfig);
@@ -940,6 +976,36 @@ bool Label::updateQuads()
     return ret;
 }
 
+bool Label::setTTFConfigInternal2(const TTFConfig& ttfConfig)
+{
+	FontAtlas *newAtlas = FontAtlasCache::getFontAtlasTTF(&ttfConfig, true);
+
+	if (!newAtlas)
+	{
+		reset();
+		return false;
+	}
+
+	_systemFontDirty = false;
+
+	_currentLabelType = LabelType::TTF2;
+
+	setFontAtlas(newAtlas);// , ttfConfig.distanceFieldEnabled, false);
+
+	_fontConfig = ttfConfig;
+
+	if (_fontConfig.italics)
+		this->enableItalics();
+	if (_fontConfig.bold)
+		this->enableBold();
+	if (_fontConfig.underline)
+		this->enableUnderline();
+	if (_fontConfig.strikethrough)
+		this->enableStrikethrough();
+
+	return true;
+}
+
 bool Label::setTTFConfigInternal(const TTFConfig& ttfConfig)
 {
     FontAtlas *newAtlas = FontAtlasCache::getFontAtlasTTF(&ttfConfig);
@@ -1006,6 +1072,11 @@ void Label::scaleFontSizeDown(float fontSize)
     }else if (_currentLabelType == LabelType::STRING_TEXTURE){
         this->setSystemFontSize(fontSize);
     }
+	else if (_currentLabelType == LabelType::TTF2) {
+		auto ttfConfig = this->getTTFConfig();
+		ttfConfig.fontSize = fontSize;
+		this->setTTFConfigInternal2(ttfConfig);
+	}
     
     if (shouldUpdateContent) {
         this->updateContent();
@@ -1566,7 +1637,7 @@ void Label::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
     if (_insideBounds)
 #endif
     {
-        if (!_shadowEnabled && (_currentLabelType == LabelType::BMFONT || _currentLabelType == LabelType::CHARMAP))
+        if (!_shadowEnabled && (_currentLabelType == LabelType::BMFONT || _currentLabelType == LabelType::CHARMAP || _currentLabelType == LabelType::TTF2))
         {
             for (auto&& it : _letters)
             {
@@ -1907,7 +1978,7 @@ void Label::updateDisplayedOpacity(GLubyte parentOpacity)
 
 void Label::setTextColor(const Color4B &color)
 {
-    CCASSERT(_currentLabelType == LabelType::TTF || _currentLabelType == LabelType::STRING_TEXTURE, "Only supported system font and ttf!");
+    CCASSERT(_currentLabelType == LabelType::TTF || _currentLabelType == LabelType::TTF2 || _currentLabelType == LabelType::STRING_TEXTURE, "Only supported system font and ttf!");
 
     if (_currentLabelType == LabelType::STRING_TEXTURE && _textColor != color)
     {
@@ -2074,7 +2145,7 @@ float Label::getRenderingFontSize()const
     float fontSize;
     if (_currentLabelType == LabelType::BMFONT) {
         fontSize = _bmFontSize;
-    }else if(_currentLabelType == LabelType::TTF){
+    }else if(_currentLabelType == LabelType::TTF || _currentLabelType == LabelType::TTF2){
         fontSize = this->getTTFConfig().fontSize;
     }else if(_currentLabelType == LabelType::STRING_TEXTURE){
         fontSize = _systemFontSize;

@@ -66,7 +66,7 @@ public:
     /**
      * @js ctor
      */
-    FontAtlas(Font &theFont);
+	FontAtlas(Font &theFont, bool use32bit = false);
     /**
      * @js NA
      * @lua NA
@@ -145,7 +145,7 @@ protected:
     EventListenerCustom* _rendererRecreatedListener;
     bool _antialiasEnabled;
     int _currLineHeight;
-
+	int _pixelFormat;
     friend class Label;
 };
 

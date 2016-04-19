@@ -43,7 +43,7 @@ const int FontAtlas::CacheTextureHeight = 512;
 const char* FontAtlas::CMD_PURGE_FONTATLAS = "__cc_PURGE_FONTATLAS";
 const char* FontAtlas::CMD_RESET_FONTATLAS = "__cc_RESET_FONTATLAS";
 
-FontAtlas::FontAtlas(Font &theFont) 
+FontAtlas::FontAtlas(Font &theFont, bool use32bit)
 : _font(&theFont)
 , _fontFreeType(nullptr)
 , _iconv(nullptr)
@@ -72,19 +72,38 @@ FontAtlas::FontAtlas(Font &theFont)
             _letterPadding += 2 * FontFreeType::DistanceMapSpread;    
         }
         _currentPageDataSize = CacheTextureWidth * CacheTextureHeight;
-        auto outlineSize = _fontFreeType->getOutlineSize();
-        if(outlineSize > 0)
-        {
-            _lineHeight += 2 * outlineSize;
-            _currentPageDataSize *= 2;
-        }
 
+		auto outlineSize = _fontFreeType->getOutlineSize();
+
+		if (use32bit)
+		{
+			_currentPageDataSize *= 4;
+		}
+		else
+		{		
+			if (outlineSize > 0)
+			{
+				_lineHeight += 2 * outlineSize;
+				_currentPageDataSize *= 2;
+			}
+		}
+
+		
         _currentPageData = new (std::nothrow) unsigned char[_currentPageDataSize];
         memset(_currentPageData, 0, _currentPageDataSize);
 
-        auto  pixelFormat = outlineSize > 0 ? Texture2D::PixelFormat::AI88 : Texture2D::PixelFormat::A8; 
-        texture->initWithData(_currentPageData, _currentPageDataSize, 
-            pixelFormat, CacheTextureWidth, CacheTextureHeight, Size(CacheTextureWidth,CacheTextureHeight) );
+		if (use32bit)
+		{
+			_pixelFormat = (int)Texture2D::PixelFormat::RGBA8888;
+		}
+		else
+		{
+			_pixelFormat = (int)(outlineSize > 0 ? Texture2D::PixelFormat::AI88 : Texture2D::PixelFormat::A8);
+		}
+		
+
+		texture->initWithData(_currentPageData, _currentPageDataSize, 
+			(Texture2D::PixelFormat)_pixelFormat, CacheTextureWidth, CacheTextureHeight, Size(CacheTextureWidth,CacheTextureHeight) );
 
         addTexture(texture,0);
         texture->release();
@@ -326,7 +345,11 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
     FontLetterDefinition tempDef;
 
     auto scaleFactor = CC_CONTENT_SCALE_FACTOR();
+	
     auto  pixelFormat = _fontFreeType->getOutlineSize() > 0 ? Texture2D::PixelFormat::AI88 : Texture2D::PixelFormat::A8;
+
+	if (_pixelFormat == (int)Texture2D::PixelFormat::RGBA8888)
+		pixelFormat = Texture2D::PixelFormat::RGBA8888;
 
     float startY = _currentPageOrigY;
 
@@ -354,6 +377,10 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
                 if (_currentPageOrigY + _lineHeight >= CacheTextureHeight)
                 {
                     unsigned char *data = nullptr;
+					if (pixelFormat == Texture2D::PixelFormat::RGBA8888)
+					{
+						data = _currentPageData + CacheTextureWidth * (int)startY * 4;
+					}else
                     if (pixelFormat == Texture2D::PixelFormat::AI88)
                     {
                         data = _currentPageData + CacheTextureWidth * (int)startY * 2;
@@ -385,7 +412,10 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
                     tex->release();
                 }
             }
-            _fontFreeType->renderCharAt(_currentPageData, _currentPageOrigX + adjustForExtend, _currentPageOrigY + adjustForExtend, bitmap, bitmapWidth, bitmapHeight);
+
+			bool use32bit = (_pixelFormat == (int)Texture2D::PixelFormat::RGBA8888);
+            _fontFreeType->renderCharAt(_currentPageData, _currentPageOrigX + adjustForExtend,
+				_currentPageOrigY + adjustForExtend, bitmap, bitmapWidth, bitmapHeight, use32bit);
 
             tempDef.U = _currentPageOrigX;
             tempDef.V = _currentPageOrigY;
@@ -417,6 +447,10 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
     }
 
     unsigned char *data = nullptr;
+	if (pixelFormat == Texture2D::PixelFormat::RGBA8888)
+	{
+		data = _currentPageData + CacheTextureWidth * (int)startY * 4;
+	}else
     if (pixelFormat == Texture2D::PixelFormat::AI88)
     {
         data = _currentPageData + CacheTextureWidth * (int)startY * 2;

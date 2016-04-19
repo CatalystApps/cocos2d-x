@@ -62,7 +62,7 @@ public:
 
     float getOutlineSize() const { return _outlineSize; }
 
-    void renderCharAt(unsigned char *dest,int posX, int posY, unsigned char* bitmap,long bitmapWidth,long bitmapHeight); 
+    void renderCharAt(unsigned char *dest,int posX, int posY, unsigned char* bitmap,long bitmapWidth,long bitmapHeight, bool use32bit = false); 
 
     FT_Encoding getEncoding() const { return _encoding; }
 
@@ -74,6 +74,8 @@ public:
     const char* getFontFamily() const;
 
     virtual FontAtlas* createFontAtlas() override;
+	FontAtlas* createFontAtlas32bit();
+
     virtual int getFontMaxHeight() const override { return _lineHeight; }
 
     static void releaseFont(const std::string &fontName);

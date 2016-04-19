@@ -220,6 +220,25 @@ FontAtlas * FontFreeType::createFontAtlas()
     return _fontAtlas;
 }
 
+FontAtlas * FontFreeType::createFontAtlas32bit()
+{
+	if (_fontAtlas == nullptr)
+	{
+		_fontAtlas = new (std::nothrow) FontAtlas(*this, true);
+		if (_fontAtlas && _usedGlyphs != GlyphCollection::DYNAMIC)
+		{
+			std::u16string utf16;
+			if (StringUtils::UTF8ToUTF16(getGlyphCollection(), utf16))
+			{
+				_fontAtlas->prepareLetterDefinitions(utf16);
+			}
+		}
+		this->release();
+	}
+
+	return _fontAtlas;
+}
+
 int * FontFreeType::getHorizontalKerningForTextUTF16(const std::u16string& text, int &outNumLetters) const
 {
     if (!_fontRef)
@@ -530,7 +549,7 @@ unsigned char * makeDistanceMap( unsigned char *img, long width, long height)
     return out;
 }
 
-void FontFreeType::renderCharAt(unsigned char *dest,int posX, int posY, unsigned char* bitmap,long bitmapWidth,long bitmapHeight)
+void FontFreeType::renderCharAt(unsigned char *dest,int posX, int posY, unsigned char* bitmap,long bitmapWidth,long bitmapHeight, bool use32bit)
 {
     int iX = posX;
     int iY = posY;
@@ -556,7 +575,11 @@ void FontFreeType::renderCharAt(unsigned char *dest,int posX, int posY, unsigned
                 dest[index + 2] = out[index2 + 2];*/
 
                 //Single channel 8-bit output 
-                dest[iX + ( iY * FontAtlas::CacheTextureWidth )] = distanceMap[bitmap_y + x];
+				if (!use32bit)
+				{
+					dest[iX + (iY * FontAtlas::CacheTextureWidth)] = distanceMap[bitmap_y + x];
+				}
+				// TODO
 
                 iX += 1;
             }
@@ -575,10 +598,14 @@ void FontFreeType::renderCharAt(unsigned char *dest,int posX, int posY, unsigned
 
             for (int x = 0; x < bitmapWidth; ++x)
             {
-                tempChar = bitmap[(bitmap_y + x) * 2];
-                dest[(iX + ( iY * FontAtlas::CacheTextureWidth ) ) * 2] = tempChar;
-                tempChar = bitmap[(bitmap_y + x) * 2 + 1];
-                dest[(iX + ( iY * FontAtlas::CacheTextureWidth ) ) * 2 + 1] = tempChar;
+				if (!use32bit)
+				{
+					tempChar = bitmap[(bitmap_y + x) * 2];
+					dest[(iX + (iY * FontAtlas::CacheTextureWidth)) * 2] = tempChar;
+					tempChar = bitmap[(bitmap_y + x) * 2 + 1];
+					dest[(iX + (iY * FontAtlas::CacheTextureWidth)) * 2 + 1] = tempChar;
+				}
+				// TODO
 
                 iX += 1;
             }
@@ -597,9 +624,20 @@ void FontFreeType::renderCharAt(unsigned char *dest,int posX, int posY, unsigned
             for (int x = 0; x < bitmapWidth; ++x)
             {
                 unsigned char cTemp = bitmap[bitmap_y + x];
+				//unsigned char cTemp = bitmap[(bitmap_y + x)*4];
 
                 // the final pixel
-                dest[(iX + ( iY * FontAtlas::CacheTextureWidth ) )] = cTemp;
+				if (!use32bit)
+				{
+					dest[(iX + ( iY * FontAtlas::CacheTextureWidth ) )] = cTemp;
+				}
+				else
+				{
+					dest[(iX + (iY * FontAtlas::CacheTextureWidth)) * 4] = cTemp;
+					dest[(iX + (iY * FontAtlas::CacheTextureWidth)) * 4 + 1] = cTemp;
+					dest[(iX + (iY * FontAtlas::CacheTextureWidth)) * 4 + 2] = cTemp;
+					dest[(iX + (iY * FontAtlas::CacheTextureWidth)) * 4 + 3] = cTemp;
+				}				
 
                 iX += 1;
             }
