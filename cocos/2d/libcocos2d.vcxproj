@@ -512,6 +512,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\debug-lib\*.*" 
     <ClCompile Include="..\..\extensions\assets-manager\CCEventAssetsManagerEx.cpp" />
     <ClCompile Include="..\..\extensions\assets-manager\CCEventListenerAssetsManagerEx.cpp" />
     <ClCompile Include="..\..\extensions\assets-manager\Manifest.cpp" />
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizer.cpp" />
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCLongPressGestureRecognizer.cpp" />
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCPanGestureRecognizer.cpp" />
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCPinchGestureRecognizer.cpp" />
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCSwipeGestureRecognizer.cpp" />
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCTapGestureRecognizer.cpp" />
     <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControl.cpp" />
     <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlButton.cpp" />
     <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlColourPicker.cpp" />
@@ -811,6 +817,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\debug-lib\*.*" 
     <ClInclude Include="..\..\extensions\assets-manager\CCEventAssetsManagerEx.h" />
     <ClInclude Include="..\..\extensions\assets-manager\CCEventListenerAssetsManagerEx.h" />
     <ClInclude Include="..\..\extensions\assets-manager\Manifest.h" />
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizer.h" />
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCLongPressGestureRecognizer.h" />
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCPanGestureRecognizer.h" />
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCPinchGestureRecognizer.h" />
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCSwipeGestureRecognizer.h" />
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCTapGestureRecognizer.h" />
     <ClInclude Include="..\..\extensions\cocos-ext.h" />
     <ClInclude Include="..\..\extensions\ExtensionExport.h" />
     <ClInclude Include="..\..\extensions\ExtensionMacros.h" />

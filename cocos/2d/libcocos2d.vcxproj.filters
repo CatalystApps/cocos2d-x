@@ -136,6 +136,9 @@
     <Filter Include="navmesh">
       <UniqueIdentifier>{0f3fa25d-9e2b-4a2e-a1df-834b796b3fb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="extension\CCGestureRecognizer">
+      <UniqueIdentifier>{4468e4c9-b216-4bd1-a4ca-f9e0b55c9010}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\physics\CCPhysicsBody.cpp">
@@ -1020,6 +1023,24 @@
       <Filter>network</Filter>
     </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Light3DReader\Light3DReader.cpp" />
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizer.cpp">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCLongPressGestureRecognizer.cpp">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCPanGestureRecognizer.cpp">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCPinchGestureRecognizer.cpp">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCSwipeGestureRecognizer.cpp">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCTapGestureRecognizer.cpp">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -2035,6 +2056,24 @@
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Light3DReader\Light3DReader.h" />
     <ClInclude Include="..\ui\UIAbstractCheckButton.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizer.h">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCLongPressGestureRecognizer.h">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCPanGestureRecognizer.h">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCPinchGestureRecognizer.h">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCSwipeGestureRecognizer.h">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCTapGestureRecognizer.h">
+      <Filter>extension\CCGestureRecognizer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
