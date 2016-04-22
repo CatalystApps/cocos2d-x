@@ -54,14 +54,10 @@ bool CCLongPressGestureRecognizer::onTouchBegan(Touch * pTouch, Event * pEvent)
     // CCLOG("x pos is %f y pos is %f", origLocation.x, origLocation.y);
     // if (!isPositionBetweenBounds(origLocation)) return false;
     auto target = pEvent->getCurrentTarget();
-    
-    Point locationInNode = target->convertToNodeSpace(pTouch->getLocation());
-    Size s = target->getContentSize();
-    Rect rect = Rect(0, 0, s.width, s.height);
 
-    if (!rect.containsPoint(locationInNode))
+    if (!isPointInNode(currLocation))
     {
-      return false;
+        return false;
     }
 
     currEvent = pEvent;
@@ -107,10 +103,11 @@ void CCLongPressGestureRecognizer::timerDidEnd(float dt)
     longPress->cancelPropagation = cancelsTouchesInView;
     
     gestureRecognized(longPress);
-    //if (longPress->cancelPropagation) stopTouchesPropagation(currEvent); //cancel touch over other views
-    CCLOG("Cancel touched other views 2");
+    if (longPress->cancelPropagation)
+    {
+        stopTouchesPropagation(currEvent); //cancel touch over other views
+    }
     stopGestureRecognition();
-    CCLOG("Cancel touched other views 3");
 }
 
 NS_CC_EXT_END

@@ -39,7 +39,7 @@ CCSwipeGestureRecognizer::~CCSwipeGestureRecognizer()
     
 }
 
-bool CCSwipeGestureRecognizer::checkSwipeDirection(Point p1, Point p2, int & dir)
+bool CCSwipeGestureRecognizer::checkSwipeDirection(const cocos2d::Point& p1, const cocos2d::Point& p2, int & dir)
 {
     bool right = p2.x-p1.x>=kSwipeMinDistance;
     bool left = p1.x-p2.x>=kSwipeMinDistance;

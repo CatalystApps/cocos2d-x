@@ -21,12 +21,14 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "CCGestureRecognizer.h"
+#include "ui/UIWidget.h"
 
 NS_CC_EXT_BEGIN
 
 CCGestureRecognizer::CCGestureRecognizer()
 {
     isRecognizing = false;
+    m_targetType = TargetType::GENERIC_NODE;
     
     dispatcher = Director::getInstance()->getEventDispatcher();
     
@@ -44,10 +46,11 @@ CCGestureRecognizer::~CCGestureRecognizer()
     
 }
 
-void CCGestureRecognizer::setTarget(Ref * tar, SEL_CallFuncGR sel)
+void CCGestureRecognizer::setTarget(Ref * tar, SEL_CallFuncGR sel, TargetType type /*= TargetType::GENERIC_NODE*/)
 {
     target = tar;
     selector = sel;
+    m_targetType = type;
 }
 
 void CCGestureRecognizer::setTarget(const std::function<void(CCGesture *)> &callback)
@@ -77,7 +80,7 @@ void CCGestureRecognizer::setTargetForEnded(const std::function<void(CCGesture *
     this->callbackForEnded = callback;
 }
 
-float CCGestureRecognizer::distanceBetweenPoints(Point p1, Point p2)
+float CCGestureRecognizer::distanceBetweenPoints(const cocos2d::Point& p1, const cocos2d::Point& p2)
 {
     return p2.getDistance(p1);
 }
@@ -86,6 +89,23 @@ float CCGestureRecognizer::distanceBetweenPoints(Point p1, Point p2)
 void CCGestureRecognizer::stopTouchesPropagation(Event * pEvent)
 {
     pEvent->stopPropagation();
+}
+
+bool CCGestureRecognizer::isPointInNode(const cocos2d::Point & point)
+{
+    if (m_targetType == TargetType::GENERIC_NODE)
+    {
+        cocos2d::Node* node = reinterpret_cast<cocos2d::Node*>(target);
+        Point locationInNode = node->convertToNodeSpace(point);
+        Size s = node->getContentSize();
+        Rect rect = Rect(0, 0, s.width, s.height);
+        return rect.containsPoint(locationInNode);
+    }
+    else if (m_targetType == TargetType::UI_WIDGET_NODE)
+    {
+        ui::Widget* widget = reinterpret_cast<ui::Widget*>(target);
+        return widget->hitTest(point, nullptr, nullptr);
+    }
 }
 
 void CCGestureRecognizer::setParent(cocos2d::Node*p)
@@ -101,7 +121,7 @@ void CCGestureRecognizer::setParent(cocos2d::Node*p)
     }
 }
 
-bool CCGestureRecognizer::isPositionBetweenBounds(Point pos)
+bool CCGestureRecognizer::isPositionBetweenBounds(const cocos2d::Point& pos)
 {
     return frame.containsPoint(pos);
 }

@@ -61,7 +61,7 @@ private:
     Point initialPosition;
     //struct cc_timeval startTime;
     std::chrono::high_resolution_clock::time_point startTime;
-    bool checkSwipeDirection(cocos2d::Point p1, cocos2d::Point p2, int & dir);
+    bool checkSwipeDirection(const cocos2d::Point& p1, const cocos2d::Point& p2, int & dir);
 
     const static uint32_t kSwipeMaxDuration;
     const static uint32_t kSwipeMinDistance;

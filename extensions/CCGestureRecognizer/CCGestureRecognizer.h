@@ -51,9 +51,16 @@ public:
 class CCGestureRecognizer : public cocos2d::Layer
 {
 public:
+    enum class TargetType : uint8_t
+    {
+        GENERIC_NODE,
+        UI_WIDGET_NODE,
+    };
+
+public:
     CCGestureRecognizer();
     ~CCGestureRecognizer();
-    void setTarget(cocos2d::Ref * tar, SEL_CallFuncGR sel);
+    void setTarget(cocos2d::Ref * tar, SEL_CallFuncGR sel, TargetType type = TargetType::GENERIC_NODE);
     void setTarget(const std::function<void(CCGesture*)> &callback);
     void setTargetForBegan(cocos2d::Ref * tar, SEL_CallFuncGR sel);
     void setTargetForBegan(const std::function<void(CCGesture*)> &callback);
@@ -72,8 +79,9 @@ protected:
     void stopTouchesPropagation(cocos2d::Event * pEvent);
     
     //utility methods
-    bool isPositionBetweenBounds(cocos2d::Point pos);
-    float distanceBetweenPoints(cocos2d::Point p1, cocos2d::Point p2);
+    bool isPositionBetweenBounds(const cocos2d::Point& pos);
+    bool isPointInNode(const cocos2d::Point& point);
+    float distanceBetweenPoints(const cocos2d::Point& p1, const cocos2d::Point& p2);
     
     std::chrono::high_resolution_clock::time_point getCurrentTime() { return std::chrono::high_resolution_clock::now(); }
     
@@ -87,6 +95,7 @@ protected:
 private:
     SEL_CallFuncGR selector, selectorForBegan, selectorForEnded;
     cocos2d::Ref * target, * targetForBegan, * targetForEnded;
+    TargetType m_targetType;
     std::function<void(CCGesture*)> callback, callbackForBegan, callbackForEnded;
     cocos2d::EventDispatcher * dispatcher;
 };
