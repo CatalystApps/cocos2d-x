@@ -63,6 +63,7 @@ bool CCLongPressGestureRecognizer::onTouchBegan(Touch * pTouch, Event * pEvent)
     currEvent = pEvent;
     currTouch = pTouch;
     
+    CCLOG("SCHEDULED");
     schedule(schedule_selector(CCLongPressGestureRecognizer::timerDidEnd), minimumPressDuration, 1, false);
     
     isRecognizing = true;

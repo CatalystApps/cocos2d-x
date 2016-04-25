@@ -51,16 +51,9 @@ public:
 class CCGestureRecognizer : public cocos2d::Layer
 {
 public:
-    enum class TargetType : uint8_t
-    {
-        GENERIC_NODE,
-        UI_WIDGET_NODE,
-    };
-
-public:
     CCGestureRecognizer();
     ~CCGestureRecognizer();
-    void setTarget(cocos2d::Ref * tar, SEL_CallFuncGR sel, TargetType type = TargetType::GENERIC_NODE);
+    void setTarget(cocos2d::Ref * tar, SEL_CallFuncGR sel);
     void setTarget(const std::function<void(CCGesture*)> &callback);
     void setTargetForBegan(cocos2d::Ref * tar, SEL_CallFuncGR sel);
     void setTargetForBegan(const std::function<void(CCGesture*)> &callback);
@@ -95,9 +88,10 @@ protected:
 private:
     SEL_CallFuncGR selector, selectorForBegan, selectorForEnded;
     cocos2d::Ref * target, * targetForBegan, * targetForEnded;
-    TargetType m_targetType;
     std::function<void(CCGesture*)> callback, callbackForBegan, callbackForEnded;
     cocos2d::EventDispatcher * dispatcher;
+
+    bool m_isAttachedToEventListener;
 };
 
 NS_CC_EXT_END

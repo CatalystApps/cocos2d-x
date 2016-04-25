@@ -513,6 +513,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\debug-lib\*.*" 
     <ClCompile Include="..\..\extensions\assets-manager\CCEventListenerAssetsManagerEx.cpp" />
     <ClCompile Include="..\..\extensions\assets-manager\Manifest.cpp" />
     <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizer.cpp" />
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizerFactory.cpp" />
     <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCLongPressGestureRecognizer.cpp" />
     <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCPanGestureRecognizer.cpp" />
     <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCPinchGestureRecognizer.cpp" />
@@ -818,6 +819,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\debug-lib\*.*" 
     <ClInclude Include="..\..\extensions\assets-manager\CCEventListenerAssetsManagerEx.h" />
     <ClInclude Include="..\..\extensions\assets-manager\Manifest.h" />
     <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizer.h" />
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizerFactory.h" />
     <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCLongPressGestureRecognizer.h" />
     <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCPanGestureRecognizer.h" />
     <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCPinchGestureRecognizer.h" />

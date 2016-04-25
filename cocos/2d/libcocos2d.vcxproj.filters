@@ -1041,6 +1041,9 @@
     <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCTapGestureRecognizer.cpp">
       <Filter>extension\CCGestureRecognizer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizerFactory.cpp">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -2073,6 +2076,9 @@
       <Filter>extension\CCGestureRecognizer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCTapGestureRecognizer.h">
+      <Filter>extension\CCGestureRecognizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizerFactory.h">
       <Filter>extension\CCGestureRecognizer</Filter>
     </ClInclude>
   </ItemGroup>
