@@ -3952,6 +3952,13 @@
 		B60920A91CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B609209B1CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.h */; };
 		B60920AA1CCE7DB4000C25C9 /* CCTapGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609209C1CCE7DB4000C25C9 /* CCTapGestureRecognizer.cpp */; };
 		B60920AB1CCE7DB4000C25C9 /* CCTapGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B609209D1CCE7DB4000C25C9 /* CCTapGestureRecognizer.h */; };
+		B60920B41CCE7E50000C25C9 /* CCGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920901CCE7DB4000C25C9 /* CCGestureRecognizer.cpp */; };
+		B60920B51CCE7E54000C25C9 /* CCGestureRecognizerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920921CCE7DB4000C25C9 /* CCGestureRecognizerFactory.cpp */; };
+		B60920B61CCE7E57000C25C9 /* CCLongPressGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920941CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.cpp */; };
+		B60920B71CCE7E5A000C25C9 /* CCPanGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920961CCE7DB4000C25C9 /* CCPanGestureRecognizer.cpp */; };
+		B60920B81CCE7E5D000C25C9 /* CCPinchGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920981CCE7DB4000C25C9 /* CCPinchGestureRecognizer.cpp */; };
+		B60920BA1CCE7E61000C25C9 /* CCSwipeGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609209A1CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.cpp */; };
+		B60920BB1CCE7E63000C25C9 /* CCTapGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609209C1CCE7DB4000C25C9 /* CCTapGestureRecognizer.cpp */; };
 		B60C5BD419AC68B10056FBDE /* CCBillBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60C5BD219AC68B10056FBDE /* CCBillBoard.cpp */; };
 		B60C5BD519AC68B10056FBDE /* CCBillBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60C5BD219AC68B10056FBDE /* CCBillBoard.cpp */; };
 		B60C5BD619AC68B10056FBDE /* CCBillBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = B60C5BD319AC68B10056FBDE /* CCBillBoard.h */; };
@@ -15871,6 +15878,7 @@
 				B6CAB2901AF9AA1A00B9B856 /* btCollisionShape.cpp in Sources */,
 				15B3708919EE414C00ABE682 /* Manifest.cpp in Sources */,
 				B6CAB2DA1AF9AA1A00B9B856 /* btPolyhedralConvexShape.cpp in Sources */,
+				B60920BB1CCE7E63000C25C9 /* CCTapGestureRecognizer.cpp in Sources */,
 				15AE1A9B19AAD40300C27E9E /* b2Settings.cpp in Sources */,
 				1A57006A180BC5A10088DEC7 /* CCActionCatmullRom.cpp in Sources */,
 				15AE1BEF19AAE01E00C27E9E /* CCControlHuePicker.cpp in Sources */,
@@ -16174,6 +16182,7 @@
 				1A5701E7180BCB8C0088DEC7 /* CCTransition.cpp in Sources */,
 				15AE1AC019AAD40300C27E9E /* b2MotorJoint.cpp in Sources */,
 				15B3707D19EE414C00ABE682 /* CCEventAssetsManagerEx.cpp in Sources */,
+				B60920B51CCE7E54000C25C9 /* CCGestureRecognizerFactory.cpp in Sources */,
 				29394CF319B01DBA00D2DE1A /* UIWebView.mm in Sources */,
 				15AE18BD19AAD33D00C27E9E /* CCLabelBMFontLoader.cpp in Sources */,
 				B29A7E2E19EE1B7700872B35 /* Slot.c in Sources */,
@@ -16213,6 +16222,7 @@
 				1A570215180BCBF40088DEC7 /* CCRenderTexture.cpp in Sources */,
 				B6CAB2EE1AF9AA1A00B9B856 /* btStridingMeshInterface.cpp in Sources */,
 				1A570222180BCC1A0088DEC7 /* CCParticleBatchNode.cpp in Sources */,
+				B60920B81CCE7E5D000C25C9 /* CCPinchGestureRecognizer.cpp in Sources */,
 				292DB15019B4574100A80320 /* UIEditBoxImpl-stub.cpp in Sources */,
 				B665E25B1AA80A6500DDB1C5 /* CCPUDoEnableComponentEventHandler.cpp in Sources */,
 				B665E3431AA80A6500DDB1C5 /* CCPUOnExpireObserver.cpp in Sources */,
@@ -16302,6 +16312,7 @@
 				B665E4031AA80A6600DDB1C5 /* CCPUSphereColliderTranslator.cpp in Sources */,
 				50ABBE321925AB6F00A911A9 /* CCConfiguration.cpp in Sources */,
 				15AE1A9F19AAD40300C27E9E /* b2Timer.cpp in Sources */,
+				B60920BA1CCE7E61000C25C9 /* CCSwipeGestureRecognizer.cpp in Sources */,
 				15AE1AD419AAD40300C27E9E /* b2WeldJoint.cpp in Sources */,
 				B6CAB2181AF9AA1A00B9B856 /* btBox2dBox2dCollisionAlgorithm.cpp in Sources */,
 				1A5702C9180BCE370088DEC7 /* CCTextFieldTTF.cpp in Sources */,
@@ -16466,6 +16477,7 @@
 				382383F71A258FA7002C4610 /* idl_gen_fbs.cpp in Sources */,
 				B5A738971BB0051F00BAAEF8 /* UIPageViewIndicator.cpp in Sources */,
 				B665E24B1AA80A6500DDB1C5 /* CCPUColorAffector.cpp in Sources */,
+				B60920B71CCE7E5A000C25C9 /* CCPanGestureRecognizer.cpp in Sources */,
 				B665E20F1AA80A6500DDB1C5 /* CCPUBaseForceAffector.cpp in Sources */,
 				15AE1B7419AADA9A00C27E9E /* UILoadingBar.cpp in Sources */,
 				50ABBEA41925AB6F00A911A9 /* CCScriptSupport.cpp in Sources */,
@@ -16478,6 +16490,7 @@
 				3E6176761960F89B00DE83F5 /* CCEventListenerController.cpp in Sources */,
 				15AE1AC219AAD40300C27E9E /* b2DistanceJoint.cpp in Sources */,
 				503DD8E71926736A00CD74DD /* CCEAGLView-ios.mm in Sources */,
+				B60920B61CCE7E57000C25C9 /* CCLongPressGestureRecognizer.cpp in Sources */,
 				3E2BDAEC19C0436F0055CDCD /* AudioEngine.cpp in Sources */,
 				382383F11A258FA7002C4610 /* flatc.cpp in Sources */,
 				52B47A311A5349A3004E4C60 /* HttpCookie.cpp in Sources */,
@@ -16601,6 +16614,7 @@
 				15AE180D19AAD2F700C27E9E /* CCAnimate3D.cpp in Sources */,
 				B6CAB1EE1AF9AA1A00B9B856 /* btBroadphaseProxy.cpp in Sources */,
 				50ABBE7A1925AB6F00A911A9 /* CCEventMouse.cpp in Sources */,
+				B60920B41CCE7E50000C25C9 /* CCGestureRecognizer.cpp in Sources */,
 				B665E3BF1AA80A6500DDB1C5 /* CCPUScaleAffector.cpp in Sources */,
 				15EFA212198A2BB5000C57D3 /* CCProtectedNode.cpp in Sources */,
 				50ABBD981925AB4100A911A9 /* CCGLProgramStateCache.cpp in Sources */,
