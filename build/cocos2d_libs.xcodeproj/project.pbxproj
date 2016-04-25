@@ -3938,6 +3938,20 @@
 		B603F1A91AC8EA0900A9579C /* CCTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B603F1A61AC8EA0900A9579C /* CCTerrain.cpp */; };
 		B603F1AA1AC8EA0900A9579C /* CCTerrain.h in Headers */ = {isa = PBXBuildFile; fileRef = B603F1A71AC8EA0900A9579C /* CCTerrain.h */; };
 		B603F1AB1AC8EA0900A9579C /* CCTerrain.h in Headers */ = {isa = PBXBuildFile; fileRef = B603F1A71AC8EA0900A9579C /* CCTerrain.h */; };
+		B609209E1CCE7DB4000C25C9 /* CCGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920901CCE7DB4000C25C9 /* CCGestureRecognizer.cpp */; };
+		B609209F1CCE7DB4000C25C9 /* CCGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B60920911CCE7DB4000C25C9 /* CCGestureRecognizer.h */; };
+		B60920A01CCE7DB4000C25C9 /* CCGestureRecognizerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920921CCE7DB4000C25C9 /* CCGestureRecognizerFactory.cpp */; };
+		B60920A11CCE7DB4000C25C9 /* CCGestureRecognizerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = B60920931CCE7DB4000C25C9 /* CCGestureRecognizerFactory.h */; };
+		B60920A21CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920941CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.cpp */; };
+		B60920A31CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B60920951CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.h */; };
+		B60920A41CCE7DB4000C25C9 /* CCPanGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920961CCE7DB4000C25C9 /* CCPanGestureRecognizer.cpp */; };
+		B60920A51CCE7DB4000C25C9 /* CCPanGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B60920971CCE7DB4000C25C9 /* CCPanGestureRecognizer.h */; };
+		B60920A61CCE7DB4000C25C9 /* CCPinchGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60920981CCE7DB4000C25C9 /* CCPinchGestureRecognizer.cpp */; };
+		B60920A71CCE7DB4000C25C9 /* CCPinchGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B60920991CCE7DB4000C25C9 /* CCPinchGestureRecognizer.h */; };
+		B60920A81CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609209A1CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.cpp */; };
+		B60920A91CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B609209B1CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.h */; };
+		B60920AA1CCE7DB4000C25C9 /* CCTapGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609209C1CCE7DB4000C25C9 /* CCTapGestureRecognizer.cpp */; };
+		B60920AB1CCE7DB4000C25C9 /* CCTapGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B609209D1CCE7DB4000C25C9 /* CCTapGestureRecognizer.h */; };
 		B60C5BD419AC68B10056FBDE /* CCBillBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60C5BD219AC68B10056FBDE /* CCBillBoard.cpp */; };
 		B60C5BD519AC68B10056FBDE /* CCBillBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60C5BD219AC68B10056FBDE /* CCBillBoard.cpp */; };
 		B60C5BD619AC68B10056FBDE /* CCBillBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = B60C5BD319AC68B10056FBDE /* CCBillBoard.h */; };
@@ -6672,6 +6686,20 @@
 		B603F1A71AC8EA0900A9579C /* CCTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTerrain.h; sourceTree = "<group>"; };
 		B603F1B11AC8F1FD00A9579C /* ccShader_3D_Terrain.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ccShader_3D_Terrain.frag; sourceTree = "<group>"; };
 		B603F1B21AC8F1FD00A9579C /* ccShader_3D_Terrain.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ccShader_3D_Terrain.vert; sourceTree = "<group>"; };
+		B60920901CCE7DB4000C25C9 /* CCGestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCGestureRecognizer.cpp; path = CCGestureRecognizer/CCGestureRecognizer.cpp; sourceTree = "<group>"; };
+		B60920911CCE7DB4000C25C9 /* CCGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCGestureRecognizer.h; path = CCGestureRecognizer/CCGestureRecognizer.h; sourceTree = "<group>"; };
+		B60920921CCE7DB4000C25C9 /* CCGestureRecognizerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCGestureRecognizerFactory.cpp; path = CCGestureRecognizer/CCGestureRecognizerFactory.cpp; sourceTree = "<group>"; };
+		B60920931CCE7DB4000C25C9 /* CCGestureRecognizerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCGestureRecognizerFactory.h; path = CCGestureRecognizer/CCGestureRecognizerFactory.h; sourceTree = "<group>"; };
+		B60920941CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCLongPressGestureRecognizer.cpp; path = CCGestureRecognizer/CCLongPressGestureRecognizer.cpp; sourceTree = "<group>"; };
+		B60920951CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCLongPressGestureRecognizer.h; path = CCGestureRecognizer/CCLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		B60920961CCE7DB4000C25C9 /* CCPanGestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCPanGestureRecognizer.cpp; path = CCGestureRecognizer/CCPanGestureRecognizer.cpp; sourceTree = "<group>"; };
+		B60920971CCE7DB4000C25C9 /* CCPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPanGestureRecognizer.h; path = CCGestureRecognizer/CCPanGestureRecognizer.h; sourceTree = "<group>"; };
+		B60920981CCE7DB4000C25C9 /* CCPinchGestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCPinchGestureRecognizer.cpp; path = CCGestureRecognizer/CCPinchGestureRecognizer.cpp; sourceTree = "<group>"; };
+		B60920991CCE7DB4000C25C9 /* CCPinchGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPinchGestureRecognizer.h; path = CCGestureRecognizer/CCPinchGestureRecognizer.h; sourceTree = "<group>"; };
+		B609209A1CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCSwipeGestureRecognizer.cpp; path = CCGestureRecognizer/CCSwipeGestureRecognizer.cpp; sourceTree = "<group>"; };
+		B609209B1CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCSwipeGestureRecognizer.h; path = CCGestureRecognizer/CCSwipeGestureRecognizer.h; sourceTree = "<group>"; };
+		B609209C1CCE7DB4000C25C9 /* CCTapGestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCTapGestureRecognizer.cpp; path = CCGestureRecognizer/CCTapGestureRecognizer.cpp; sourceTree = "<group>"; };
+		B609209D1CCE7DB4000C25C9 /* CCTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTapGestureRecognizer.h; path = CCGestureRecognizer/CCTapGestureRecognizer.h; sourceTree = "<group>"; };
 		B60C5BD219AC68B10056FBDE /* CCBillBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCBillBoard.cpp; sourceTree = "<group>"; };
 		B60C5BD319AC68B10056FBDE /* CCBillBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBillBoard.h; sourceTree = "<group>"; };
 		B63990CA1A490AFE00B07923 /* CCAsyncTaskPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCAsyncTaskPool.cpp; path = ../base/CCAsyncTaskPool.cpp; sourceTree = "<group>"; };
@@ -9047,6 +9075,7 @@
 		46A167981807AF4D005B8026 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B609208F1CCE7D99000C25C9 /* CCGestureRecognizer */,
 				B6C0BF4D1A6F733D00BCF15A /* Particle3D */,
 				292DB15D19B461CA00A80320 /* ExtensionDeprecated.cpp */,
 				292DB15E19B461CA00A80320 /* ExtensionDeprecated.h */,
@@ -9873,6 +9902,27 @@
 			);
 			name = 3d;
 			path = ../cocos/3d;
+			sourceTree = "<group>";
+		};
+		B609208F1CCE7D99000C25C9 /* CCGestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				B60920901CCE7DB4000C25C9 /* CCGestureRecognizer.cpp */,
+				B60920911CCE7DB4000C25C9 /* CCGestureRecognizer.h */,
+				B60920921CCE7DB4000C25C9 /* CCGestureRecognizerFactory.cpp */,
+				B60920931CCE7DB4000C25C9 /* CCGestureRecognizerFactory.h */,
+				B60920941CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.cpp */,
+				B60920951CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.h */,
+				B60920961CCE7DB4000C25C9 /* CCPanGestureRecognizer.cpp */,
+				B60920971CCE7DB4000C25C9 /* CCPanGestureRecognizer.h */,
+				B60920981CCE7DB4000C25C9 /* CCPinchGestureRecognizer.cpp */,
+				B60920991CCE7DB4000C25C9 /* CCPinchGestureRecognizer.h */,
+				B609209A1CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.cpp */,
+				B609209B1CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.h */,
+				B609209C1CCE7DB4000C25C9 /* CCTapGestureRecognizer.cpp */,
+				B609209D1CCE7DB4000C25C9 /* CCTapGestureRecognizer.h */,
+			);
+			name = CCGestureRecognizer;
 			sourceTree = "<group>";
 		};
 		B6C0BF4D1A6F733D00BCF15A /* Particle3D */ = {
@@ -10966,6 +11016,7 @@
 				292DB14519B4574100A80320 /* UIEditBoxImpl-android.h in Headers */,
 				15AE1B9A19AADFDF00C27E9E /* UIHBox.h in Headers */,
 				B665E2E41AA80A6500DDB1C5 /* CCPULineAffectorTranslator.h in Headers */,
+				B609209F1CCE7DB4000C25C9 /* CCGestureRecognizer.h in Headers */,
 				B665E2781AA80A6500DDB1C5 /* CCPUDoPlacementParticleEventHandlerTranslator.h in Headers */,
 				15AE18EB19AAD35000C27E9E /* CCActionNode.h in Headers */,
 				B6CAB2151AF9AA1A00B9B856 /* btActivatingCollisionAlgorithm.h in Headers */,
@@ -11064,6 +11115,7 @@
 				B665E3E01AA80A6600DDB1C5 /* CCPUSimpleSpline.h in Headers */,
 				B6DD2FAD1B04825B00E47F5F /* DetourDebugDraw.h in Headers */,
 				B665E42C1AA80A6600DDB1C5 /* CCPUVelocityMatchingAffector.h in Headers */,
+				B60920A71CCE7DB4000C25C9 /* CCPinchGestureRecognizer.h in Headers */,
 				B665E3B41AA80A6500DDB1C5 /* CCPURendererTranslator.h in Headers */,
 				B6CAAFF01AF9A9E100B9B856 /* CCPhysics3DDebugDrawer.h in Headers */,
 				1A57006B180BC5A10088DEC7 /* CCActionCatmullRom.h in Headers */,
@@ -11323,6 +11375,7 @@
 				1A5701F0180BCB8C0088DEC7 /* CCTransitionProgress.h in Headers */,
 				1A5701F9180BCBAD0088DEC7 /* CCMenu.h in Headers */,
 				B6CAB4A11AF9AA1A00B9B856 /* PosixThreadSupport.h in Headers */,
+				B60920A51CCE7DB4000C25C9 /* CCPanGestureRecognizer.h in Headers */,
 				C50306791B60B5B2001E6D43 /* SkeletonNodeReader.h in Headers */,
 				B665E3001AA80A6500DDB1C5 /* CCPUMaterialTranslator.h in Headers */,
 				B665E33C1AA80A6500DDB1C5 /* CCPUOnEventFlagObserver.h in Headers */,
@@ -11392,6 +11445,7 @@
 				1A57022B180BCC1A0088DEC7 /* CCParticleSystem.h in Headers */,
 				15AE190E19AAD35000C27E9E /* CCDisplayManager.h in Headers */,
 				B6CAB50B1AF9AA1A00B9B856 /* btHashMap.h in Headers */,
+				B60920A91CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.h in Headers */,
 				15AE1A6719AAD40300C27E9E /* b2World.h in Headers */,
 				B6CAB3571AF9AA1A00B9B856 /* gim_math.h in Headers */,
 				B677B0D71B18492D006762CB /* CCNavMeshObstacle.h in Headers */,
@@ -11681,6 +11735,7 @@
 				B6CAB1E31AF9AA1A00B9B856 /* btBulletDynamicsCommon.h in Headers */,
 				382384311A259112002C4610 /* ParticleReader.h in Headers */,
 				B6CAB3BD1AF9AA1A00B9B856 /* btGeneric6DofSpringConstraint.h in Headers */,
+				B60920A11CCE7DB4000C25C9 /* CCGestureRecognizerFactory.h in Headers */,
 				B6DD2FBF1B04825B00E47F5F /* DetourCommon.h in Headers */,
 				B665E3D01AA80A6600DDB1C5 /* CCPUScriptCompiler.h in Headers */,
 				5034CA35191D591100CE6051 /* ccShader_PositionTexture.frag in Headers */,
@@ -11716,6 +11771,7 @@
 				5012169C1AC473A3009A4BEA /* CCTechnique.h in Headers */,
 				15AE1B9E19AADFDF00C27E9E /* UIVBox.h in Headers */,
 				15AE192319AAD35000C27E9E /* DictionaryHelper.h in Headers */,
+				B60920A31CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.h in Headers */,
 				B6CAB2DF1AF9AA1A00B9B856 /* btScaledBvhTriangleMeshShape.h in Headers */,
 				B6CAB3B51AF9AA1A00B9B856 /* btGearConstraint.h in Headers */,
 				B6CAB4051AF9AA1A00B9B856 /* btMultiBodyDynamicsWorld.h in Headers */,
@@ -11920,6 +11976,7 @@
 				B6DD2FCD1B04825B00E47F5F /* DetourNavMeshQuery.h in Headers */,
 				50ABBDA91925AB4100A911A9 /* CCRenderCommand.h in Headers */,
 				B6CAB3791AF9AA1A00B9B856 /* btGjkEpaPenetrationDepthSolver.h in Headers */,
+				B60920AB1CCE7DB4000C25C9 /* CCTapGestureRecognizer.h in Headers */,
 				50ABBD951925AB4100A911A9 /* CCGLProgramState.h in Headers */,
 				50ABC0091926664800A911A9 /* CCCommon.h in Headers */,
 				50ABBE531925AB6F00A911A9 /* CCEventDispatcher.h in Headers */,
@@ -14117,6 +14174,7 @@
 				B6CAB3771AF9AA1A00B9B856 /* btGjkEpaPenetrationDepthSolver.cpp in Sources */,
 				15FB208F1AE7C57D00C31518 /* advancing_front.cc in Sources */,
 				50ABBEB71925AB6F00A911A9 /* ccUTF8.cpp in Sources */,
+				B60920A61CCE7DB4000C25C9 /* CCPinchGestureRecognizer.cpp in Sources */,
 				B665E2621AA80A6500DDB1C5 /* CCPUDoExpireEventHandler.cpp in Sources */,
 				B665E4161AA80A6600DDB1C5 /* CCPUTextureAnimatorTranslator.cpp in Sources */,
 				B665E41E1AA80A6600DDB1C5 /* CCPUTextureRotatorTranslator.cpp in Sources */,
@@ -14162,6 +14220,7 @@
 				299CF1FB19A434BC00C378C1 /* ccRandom.cpp in Sources */,
 				B6CAB4D91AF9AA1A00B9B856 /* SpuMinkowskiPenetrationDepthSolver.cpp in Sources */,
 				B665E3CE1AA80A6600DDB1C5 /* CCPUScriptCompiler.cpp in Sources */,
+				B609209E1CCE7DB4000C25C9 /* CCGestureRecognizer.cpp in Sources */,
 				15AE18E819AAD35000C27E9E /* CCActionManagerEx.cpp in Sources */,
 				B677B0CD1B18492D006762CB /* CCNavMeshAgent.cpp in Sources */,
 				B29A7DDB19EE1B7700872B35 /* Event.c in Sources */,
@@ -14349,6 +14408,7 @@
 				15AE18A819AAD33D00C27E9E /* CCSpriteLoader.cpp in Sources */,
 				B6CAB2E91AF9AA1A00B9B856 /* btStaticPlaneShape.cpp in Sources */,
 				1A5701CB180BCB5A0088DEC7 /* CCLabelTTF.cpp in Sources */,
+				B60920A01CCE7DB4000C25C9 /* CCGestureRecognizerFactory.cpp in Sources */,
 				50ABBE711925AB6F00A911A9 /* CCEventListenerMouse.cpp in Sources */,
 				B6CAB3C91AF9AA1A00B9B856 /* btPoint2PointConstraint.cpp in Sources */,
 				1A5701DE180BCB8C0088DEC7 /* CCLayer.cpp in Sources */,
@@ -14389,6 +14449,7 @@
 				C50306781B60B5B2001E6D43 /* SkeletonNodeReader.cpp in Sources */,
 				B6CAB3DD1AF9AA1A00B9B856 /* btTypedConstraint.cpp in Sources */,
 				B665E28A1AA80A6500DDB1C5 /* CCPUDynamicAttribute.cpp in Sources */,
+				B60920A81CCE7DB4000C25C9 /* CCSwipeGestureRecognizer.cpp in Sources */,
 				B665E2A21AA80A6500DDB1C5 /* CCPUEventHandlerManager.cpp in Sources */,
 				B665E3EE1AA80A6600DDB1C5 /* CCPUSlaveBehaviourTranslator.cpp in Sources */,
 				1A5701EE180BCB8C0088DEC7 /* CCTransitionProgress.cpp in Sources */,
@@ -14514,6 +14575,7 @@
 				15AE191919AAD35000C27E9E /* CCSSceneReader.cpp in Sources */,
 				B6CAB1FD1AF9AA1A00B9B856 /* btDispatcher.cpp in Sources */,
 				B6CAB2BF1AF9AA1A00B9B856 /* btEmptyShape.cpp in Sources */,
+				B60920AA1CCE7DB4000C25C9 /* CCTapGestureRecognizer.cpp in Sources */,
 				50ABBE7D1925AB6F00A911A9 /* CCEventTouch.cpp in Sources */,
 				B665E22A1AA80A6500DDB1C5 /* CCPUBoxCollider.cpp in Sources */,
 				1A5702EA180BCE750088DEC7 /* CCTileMapAtlas.cpp in Sources */,
@@ -14753,6 +14815,7 @@
 				B6CAB49F1AF9AA1A00B9B856 /* PosixThreadSupport.cpp in Sources */,
 				50ABBE451925AB6F00A911A9 /* CCEvent.cpp in Sources */,
 				D0FD034F1A3B51AA00825BB5 /* CCAllocatorGlobal.cpp in Sources */,
+				B60920A21CCE7DB4000C25C9 /* CCLongPressGestureRecognizer.cpp in Sources */,
 				50ABBE611925AB6F00A911A9 /* CCEventListenerAcceleration.cpp in Sources */,
 				50ABBD9F1925AB4100A911A9 /* CCGroupCommand.cpp in Sources */,
 				B665E3161AA80A6500DDB1C5 /* CCPUObserverTranslator.cpp in Sources */,
@@ -14840,6 +14903,7 @@
 				B665E2821AA80A6500DDB1C5 /* CCPUDoStopSystemEventHandler.cpp in Sources */,
 				1A01C68E18F57BE800EFE3A6 /* CCDictionary.cpp in Sources */,
 				50ABBD381925AB0000A911A9 /* CCAffineTransform.cpp in Sources */,
+				B60920A41CCE7DB4000C25C9 /* CCPanGestureRecognizer.cpp in Sources */,
 				B665E2AA1AA80A6500DDB1C5 /* CCPUFlockCenteringAffector.cpp in Sources */,
 				B6CAB2CD1AF9AA1A00B9B856 /* btMultimaterialTriangleMeshShape.cpp in Sources */,
 				46C02E0718E91123004B7456 /* xxhash.c in Sources */,
