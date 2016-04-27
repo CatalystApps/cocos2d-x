@@ -28,6 +28,13 @@ THE SOFTWARE.
 
 NS_CC_EXT_BEGIN
 
+//this class is used for storing information about the pan gesture
+class CCLongPress : public CCGesture
+{
+public:
+    CREATE_FUNC(CCLongPress);
+};
+
 class CCLongPressGestureRecognizer : public CCGestureRecognizer
 {
 public:

@@ -67,6 +67,13 @@ bool CCLongPressGestureRecognizer::onTouchBegan(Touch * pTouch, Event * pEvent)
     schedule(schedule_selector(CCLongPressGestureRecognizer::timerDidEnd), minimumPressDuration, 1, false);
     
     isRecognizing = true;
+
+    CCLongPress * longPress = CCLongPress::create();
+    longPress->location = currLocation;
+    longPress->cancelPropagation = cancelsTouchesInView;
+
+    gestureBegan(longPress);
+
     return true;
 }
 
@@ -77,6 +84,12 @@ void CCLongPressGestureRecognizer::onTouchMoved(cocos2d::Touch *pTouch, cocos2d:
 
 void CCLongPressGestureRecognizer::onTouchEnded(Touch * pTouch, Event * pEvent)
 {
+    CCLongPress * longPress = CCLongPress::create();
+    longPress->location = currLocation;
+    longPress->cancelPropagation = cancelsTouchesInView;
+
+    gestureEnded(longPress);
+
     stopGestureRecognition();
 }
 
@@ -99,16 +112,16 @@ void CCLongPressGestureRecognizer::timerDidEnd(float dt)
         return;
     }
     
-    CCGesture * longPress = CCGesture::create();
+    CCLongPress * longPress = CCLongPress::create();
     longPress->location = currLocation;
     longPress->cancelPropagation = cancelsTouchesInView;
     
     gestureRecognized(longPress);
-    if (longPress->cancelPropagation)
+    /*if (longPress->cancelPropagation)
     {
         stopTouchesPropagation(currEvent); //cancel touch over other views
     }
-    stopGestureRecognition();
+    stopGestureRecognition();*/
 }
 
 NS_CC_EXT_END
