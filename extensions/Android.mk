@@ -181,7 +181,14 @@ Particle3D/PU/CCPUBehaviour.cpp \
 Particle3D/PU/CCPUBehaviourManager.cpp \
 Particle3D/PU/CCPUBehaviourTranslator.cpp \
 Particle3D/PU/CCPUSlaveBehaviour.cpp \
-Particle3D/PU/CCPUSlaveBehaviourTranslator.cpp
+Particle3D/PU/CCPUSlaveBehaviourTranslator.cpp \
+CCGestureRecognizer/CCGestureRecognizer.cpp \
+CCGestureRecognizer/CCGestureRecognizerFactory.cpp \
+CCGestureRecognizer/CCLongPressGestureRecognizer.cpp \
+CCGestureRecognizer/CCPanGestureRecognizer.cpp \
+CCGestureRecognizer/CCPinchGestureRecognizer.cpp \
+CCGestureRecognizer/CCSwipeGestureRecognizer.cpp \
+CCGestureRecognizer/CCTapGestureRecognizer.cpp
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_internal_static
 LOCAL_STATIC_LIBRARIES += cocos_curl_static
