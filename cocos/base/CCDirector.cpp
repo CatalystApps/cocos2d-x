@@ -105,7 +105,8 @@ Director* Director::getInstance()
 }
 
 Director::Director()
-: _isStatusLabelUpdated(true)
+: _isStatusLabelUpdated(true),
+   _textureCache(nullptr)
 {
 }
 

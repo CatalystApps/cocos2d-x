@@ -77,7 +77,8 @@ FileUtilsAndroid::~FileUtilsAndroid()
 
 bool FileUtilsAndroid::init()
 {
-    _defaultResRootPath = "assets/";
+    //_defaultResRootPath = "assets/";
+	_defaultResRootPath = getWritablePath();
 
     return FileUtils::init();
 }
