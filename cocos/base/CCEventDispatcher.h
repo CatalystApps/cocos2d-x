@@ -218,18 +218,13 @@ protected:
         void clearFixedListeners();
         void clear();
         
-        typedef std::vector<EventListener*> EventListeners_t;
-
-        inline const EventListeners_t& getFixedPriorityListeners() const { return *_fixedListeners; };
-        inline const EventListeners_t& getSceneGraphPriorityListeners() const { return *_sceneGraphListeners; };
-        inline EventListeners_t& getFixedPriorityListeners() { return *_fixedListeners; };
-        inline EventListeners_t& getSceneGraphPriorityListeners() { return *_sceneGraphListeners; };
-
+        inline std::vector<EventListener*>* getFixedPriorityListeners() const { return _fixedListeners; };
+        inline std::vector<EventListener*>* getSceneGraphPriorityListeners() const { return _sceneGraphListeners; };
         inline ssize_t getGt0Index() const { return _gt0Index; };
         inline void setGt0Index(ssize_t index) { _gt0Index = index; };
     private:
-        std::shared_ptr<EventListeners_t> _fixedListeners;
-        std::shared_ptr<EventListeners_t> _sceneGraphListeners;
+        std::vector<EventListener*>* _fixedListeners;
+        std::vector<EventListener*>* _sceneGraphListeners;
         ssize_t _gt0Index;
     };
     
