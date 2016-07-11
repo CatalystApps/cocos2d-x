@@ -65,6 +65,8 @@ public:
     CC_DEPRECATED_ATTRIBUTE void init(float globalOrder, GLuint textureID, GLProgramState* shader, const BlendFunc& blendType, V3F_C4B_T2F_Quad* quads, ssize_t quadCount,
               const Mat4& mv);
 
+    static void clearCache();
+
 protected:
     void reIndex(int indices);
 

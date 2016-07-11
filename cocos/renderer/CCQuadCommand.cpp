@@ -65,6 +65,12 @@ void QuadCommand::init(float globalOrder, GLuint textureID, GLProgramState* glPr
     TrianglesCommand::init(globalOrder, textureID, glProgramState, blendType, triangles, mv, flags);
 }
 
+void cocos2d::QuadCommand::clearCache()
+{
+    if (__indices)
+        free(__indices);
+}
+
 void QuadCommand::reIndex(int indicesCount)
 {
     if (indicesCount > __indexCapacity)
