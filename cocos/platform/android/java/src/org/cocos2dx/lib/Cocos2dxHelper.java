@@ -76,6 +76,7 @@ public class Cocos2dxHelper {
     private static IGameTuningService mGameServiceBinder = null;
     private static final int BOOST_TIME = 7;
     //Enhance API modification end
+    private static String sFCMToken;
 
     // ===========================================================
     // Constructors
@@ -182,6 +183,9 @@ public class Cocos2dxHelper {
     public static AssetManager getAssetManager() {
         return Cocos2dxHelper.sAssetManager;
     }
+
+    public static String getFCMToken() { return sFCMToken; }
+    public static void setFCMToken(String token) { sFCMToken = token; }
 
     public static void enableAccelerometer() {
         Cocos2dxHelper.sAccelerometerEnabled = true;
