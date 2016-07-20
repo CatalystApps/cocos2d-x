@@ -184,8 +184,12 @@ public class Cocos2dxHelper {
         return Cocos2dxHelper.sAssetManager;
     }
 
-    public static String getFCMToken() { return sFCMToken; }
-    public static void setFCMToken(String token) { sFCMToken = token; }
+    public static String getFCMToken() {
+        return Cocos2dxHelper.sFCMToken;
+    }
+    public static void setFCMToken(String token) {
+        Cocos2dxHelper.sFCMToken = token;
+    }
 
     public static void enableAccelerometer() {
         Cocos2dxHelper.sAccelerometerEnabled = true;
