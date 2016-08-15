@@ -217,6 +217,24 @@ public:
     static const Rect ZERO;
 };
 
+inline static cocos2d::Rect flashBoundsToCocos(const cocos2d::Rect& bounds)
+{
+    cocos2d::Rect result = bounds;
+
+    result.origin.y = result.getMaxY() * -1;
+
+    return result;
+}
+
+inline static cocos2d::Rect cocosBoundsToFlash(const cocos2d::Rect& bounds)
+{
+    cocos2d::Rect result = bounds;
+
+    result.origin.y = (result.getMinY() + result.size.height) * -1;
+
+    return result;
+}
+
 NS_CC_END
 
 // end of base group
