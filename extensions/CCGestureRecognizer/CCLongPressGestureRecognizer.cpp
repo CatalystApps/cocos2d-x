@@ -93,6 +93,21 @@ void CCLongPressGestureRecognizer::onTouchEnded(Touch * pTouch, Event * pEvent)
     stopGestureRecognition();
 }
 
+void CCLongPressGestureRecognizer::setParent(cocos2d::Node* p)
+{
+    Layer::setParent(p);
+
+    if (p != nullptr)
+    {
+        cocos2d::Rect innerBB = p->getBoundingBox();
+        innerBB = RectApplyAffineTransform(innerBB, getParentToNodeAffineTransform());
+        setContentSize(innerBB.size);
+        setPosition(innerBB.getMinX(), innerBB.getMinY());
+        frame = innerBB;
+        CCLOG("x pos is %f y pos is %f, w %f and h %f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+    }
+}
+
 void CCLongPressGestureRecognizer::stopGestureRecognition()
 {
     if (!isRecognizing) return;
@@ -107,7 +122,8 @@ void CCLongPressGestureRecognizer::timerDidEnd(float dt)
 {
     // check if the current touch is near the original touch
     float distance = currLocation.getDistance(origLocation);
-    if (distance > kLongPressDistanceTolerance) {
+    if (distance > kLongPressDistanceTolerance)
+    {
         stopGestureRecognition();
         return;
     }

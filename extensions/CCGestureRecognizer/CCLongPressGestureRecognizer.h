@@ -46,6 +46,8 @@ public:
     virtual bool onTouchBegan(cocos2d::Touch * pTouch, cocos2d::Event * pEvent);
     virtual void onTouchMoved(cocos2d::Touch * pTouch, cocos2d::Event * pEvent);
     virtual void onTouchEnded(cocos2d::Touch * pTouch, cocos2d::Event * pEvent);
+
+    virtual void setParent(cocos2d::Node*p) override;
 protected:
     CC_SYNTHESIZE(float, minimumPressDuration, MinimumPressDuration);
 private:
