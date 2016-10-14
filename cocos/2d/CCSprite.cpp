@@ -920,8 +920,11 @@ void Sprite::setPositionZ(float fVertexZ)
 
 void Sprite::setAnchorPoint(const Vec2& anchor)
 {
-    Node::setAnchorPoint(anchor);
-    SET_DIRTY_RECURSIVELY();
+    if (!anchor.equals(Node::_anchorPoint))
+    {
+        Node::setAnchorPoint(anchor);
+        SET_DIRTY_RECURSIVELY();
+    }
 }
 
 void Sprite::ignoreAnchorPointForPosition(bool value)

@@ -1792,6 +1792,14 @@ void Node::setAdditionalTransform(const AffineTransform& additionalTransform)
 
 void Node::setAdditionalTransform(Mat4* additionalTransform)
 {
+    if (additionalTransform)
+    {
+        if (!memcmp(&_additionalTransform, additionalTransform, sizeof(Mat4)))
+        {
+            return;
+        }
+    }
+
     if (additionalTransform == nullptr)
     {
         _useAdditionalTransform = false;
