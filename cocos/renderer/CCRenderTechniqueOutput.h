@@ -12,6 +12,8 @@
 #include "platform/CCGL.h"
 #include "renderer/CCGLProgram.h"
 
+NS_CC_BEGIN
+
 class CC_DLL CCRenderTechniqueOutput : public cocos2d::Ref
 {
 private:
@@ -76,3 +78,4 @@ public:
     void unbind();
 };
 
+NS_CC_END

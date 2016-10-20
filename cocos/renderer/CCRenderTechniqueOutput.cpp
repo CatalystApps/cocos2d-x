@@ -10,6 +10,8 @@
 #include "CCGLProgramCache.h"
 #include "base/CCConfiguration.h"
 
+NS_CC_BEGIN
+
 CCRenderTechniqueOutput::CCRenderTechniqueOutput(unsigned int width, unsigned int height,
                                                  unsigned int frame_buffer_id, unsigned int render_buffer_id)
 {
@@ -19,24 +21,33 @@ CCRenderTechniqueOutput::CCRenderTechniqueOutput(unsigned int width, unsigned in
     m_render_buffer_id = render_buffer_id;
     m_clear_color[0] = 0.f; m_clear_color[1] = 0.f; m_clear_color[2] = 0.f; m_clear_color[3] = 1.f;
     
-    std::string vertexShaderSource = "attribute vec3 a_position; \
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32 && CC_TARGET_PLATFORM != CC_PLATFORM_LINUX && CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
+    std::string vertexShaderSource = "varying mediump vec2 v_texcoord;";
+#else
+    std::string vertexShaderSource = "varying vec2 v_texcoord;";
+#endif
+    vertexShaderSource += "attribute vec3 a_position; \
     attribute vec2 a_texcoord; \
-    varying mediump vec2 v_texcoord; \
     void main() \
     { \
     gl_Position = vec4(a_position, 1.0); \
     v_texcoord = a_texcoord; \
     }";
     
-    std::string fragmentShaderSource = "varying mediump vec2 v_texcoord; \
-    uniform sampler2D sampler_01; \
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32 && CC_TARGET_PLATFORM != CC_PLATFORM_LINUX && CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
+    std::string fragmentShaderSource = "varying mediump vec2 v_texcoord;";
+#else
+    std::string fragmentShaderSource = "varying vec2 v_texcoord;";
+#endif
+    
+    fragmentShaderSource += "uniform sampler2D sampler_01; \
     void main() \
     { \
     gl_FragColor = texture2D(sampler_01, v_texcoord); \
     }";
     
-    unsigned int vs_id = CCRenderTechniqueOutput::compileShader(vertexShaderSource, GL_VERTEX_SHADER);
-    unsigned int fs_id = CCRenderTechniqueOutput::compileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+    GLuint vs_id = CCRenderTechniqueOutput::compileShader(vertexShaderSource, GL_VERTEX_SHADER);
+    GLuint fs_id = CCRenderTechniqueOutput::compileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
     m_shader_id = CCRenderTechniqueOutput::linkShader(vs_id, fs_id);
     
     m_samplers[e_shader_sampler_01] = glGetUniformLocation(m_shader_id, "sampler_01");
@@ -105,8 +116,8 @@ void CCRenderTechniqueOutput::createScreenQuad()
 
 unsigned int CCRenderTechniqueOutput::compileShader(const std::string& sourceCode, GLenum shaderType)
 {
-    unsigned int id = glCreateShader(shaderType);
-    char* source = const_cast<char*>(sourceCode.c_str());
+    GLuint id = glCreateShader(shaderType);
+    const GLchar *source = const_cast<GLchar*>(sourceCode.c_str());
     glShaderSource(id, 1, &source, NULL);
     glCompileShader(id);
     
@@ -127,7 +138,7 @@ unsigned int CCRenderTechniqueOutput::compileShader(const std::string& sourceCod
 
 unsigned int CCRenderTechniqueOutput::linkShader(unsigned int vs_id, unsigned int fs_id)
 {
-    unsigned int id = glCreateProgram();
+    GLuint id = glCreateProgram();
     glAttachShader(id, vs_id);
     glAttachShader(id, fs_id);
     glLinkProgram(id);
@@ -210,3 +221,5 @@ void CCRenderTechniqueOutput::unbind()
     glBindVertexArray(NULL);
     glUseProgram(NULL);
 }
+
+NS_CC_END
