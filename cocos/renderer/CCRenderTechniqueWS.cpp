@@ -13,7 +13,7 @@ CCRenderTechniqueWS::CCRenderTechniqueWS(unsigned int width, unsigned int height
 {
     m_frame_width = width;
     m_frame_height = height;
-    m_clear_color = std::make_tuple(0.f, 0.f, 0.f, 1.f);
+    m_clear_color[0] = 0.f; m_clear_color[1] = 0.f; m_clear_color[2] = 0.f; m_clear_color[3] = 1.f;
     
     glGenTextures(1, &m_color_attachment_texture);
     glBindTexture(GL_TEXTURE_2D, m_color_attachment_texture);
@@ -146,7 +146,7 @@ void CCRenderTechniqueWS::bind()
     glEnable(GL_STENCIL_TEST);
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
     
-    glClearColor(std::get<0>(m_clear_color), std::get<1>(m_clear_color), std::get<2>(m_clear_color), std::get<3>(m_clear_color));
+    glClearColor(m_clear_color[0], m_clear_color[1], m_clear_color[2], m_clear_color[3]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 

@@ -20,7 +20,7 @@ private:
     unsigned int m_frame_width;
     unsigned int m_frame_height;
     unsigned int m_frame_buffer_id;
-    std::tuple<float, float, float, float> m_clear_color;
+    float m_clear_color[4];
     
 protected:
     
