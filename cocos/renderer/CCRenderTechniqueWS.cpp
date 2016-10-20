@@ -9,6 +9,8 @@
 #include "CCRenderTechniqueWS.h"
 #include "base/CCConfiguration.h"
 
+NS_CC_BEGIN
+
 CCRenderTechniqueWS::CCRenderTechniqueWS(unsigned int width, unsigned int height)
 {
     m_frame_width = width;
@@ -159,3 +161,5 @@ void CCRenderTechniqueWS::unbind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, NULL);
 }
+
+NS_CC_END

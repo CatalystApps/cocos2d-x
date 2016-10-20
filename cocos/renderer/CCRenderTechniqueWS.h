@@ -13,6 +13,8 @@
 
 //#define CC_USE_DEPTH_TEXTURE 1
 
+NS_CC_BEGIN
+
 class CC_DLL CCRenderTechniqueWS : public cocos2d::Ref
 {
 private:
@@ -46,3 +48,5 @@ public:
     void draw();
     void unbind();
 };
+
+NS_CC_END
