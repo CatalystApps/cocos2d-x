@@ -420,8 +420,18 @@ void Director::setOpenGLView(GLView *openGLView)
             int osRenderBuffer = -1;
             glGetIntegerv(GL_RENDERBUFFER_BINDING, &osRenderBuffer);
             
-            m_renderTechniqueOutput = new CCRenderTechniqueOutput(_openGLView->getFrameSize().width,
-                                                                  _openGLView->getFrameSize().height, osFrameBuffer, osRenderBuffer);
+            int WSWidth = _openGLView->getFrameSize().width;
+            int WSHeight = _openGLView->getFrameSize().height;
+            
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+            
+            if(_openGLView->isRetinaDisplay())
+            {
+                WSWidth *= 2;
+                WSHeight *= 2;
+            }
+#endif
+            m_renderTechniqueOutput = new CCRenderTechniqueOutput(WSWidth, WSHeight, osFrameBuffer, osRenderBuffer);
             m_renderTechniqueOutput->retain();
         }
         
