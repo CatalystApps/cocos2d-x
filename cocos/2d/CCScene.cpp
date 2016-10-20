@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "base/CCEventDispatcher.h"
 #include "base/CCEventListenerCustom.h"
 #include "renderer/CCRenderer.h"
-#include "renderer/CCFrameBuffer.h"
 #include "deprecated/CCString.h"
 
 #if CC_USE_PHYSICS
@@ -195,8 +194,6 @@ void Scene::render(Renderer* renderer)
         
         director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
         director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, Camera::_visitingCamera->getViewProjectionMatrix());
-        camera->apply();
-        //clear background with max depth
         camera->clearBackground();
         //visit the scene
         visit(renderer, transform, 0);
@@ -224,7 +221,6 @@ void Scene::render(Renderer* renderer)
 #endif
 
     Camera::_visitingCamera = nullptr;
-    experimental::FrameBuffer::applyDefaultFBO();
 }
 
 void Scene::removeAllChildren()

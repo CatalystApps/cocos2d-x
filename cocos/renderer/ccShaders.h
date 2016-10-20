@@ -38,6 +38,9 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+extern CC_DLL const GLchar * ccTechniqueOutputFrag;
+extern CC_DLL const GLchar * ccTechniqueOutputVert;
+
 extern CC_DLL const GLchar * ccPosition_uColor_frag;
 extern CC_DLL const GLchar * ccPosition_uColor_vert;
 

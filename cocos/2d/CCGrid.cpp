@@ -226,7 +226,7 @@ void GridBase::beforeDraw(void)
     //    [director setProjection:Director::Projection::_2D];
     set2DProjection();
     
-    Size    size = director->getWinSizeInPixels();
+    Size size = director->getWinSizeInPixels();
     glViewport(0, 0, (GLsizei)(size.width), (GLsizei)(size.height) );
     _grabber->beforeRender(_texture);
 }
@@ -239,21 +239,8 @@ void GridBase::afterDraw(cocos2d::Node *target)
     Director *director = Director::getInstance();
     director->setProjection(_directorProjection);
 
-    director->setViewport();
-    const auto& vp = Camera::getDefaultViewport();
-    glViewport(vp._left, vp._bottom, vp._width, vp._height);
-//    if (target->getCamera()->isDirty())
-//    {
-//        Vec2 offset = target->getAnchorPointInPoints();
-//
-//        //
-//        // FIXME: Camera should be applied in the AnchorPoint
-//        //
-//        kmGLTranslatef(offset.x, offset.y, 0);
-//        target->getCamera()->locate();
-//        kmGLTranslatef(-offset.x, -offset.y, 0);
-//    }
-
+    const auto& size = director->getViewportSize();
+    glViewport(0, 0, size.width, size.height);
     GL::bindTexture2D(_texture->getName());
 
     // restore projection for default FBO .fixed bug #543 #544

@@ -591,15 +591,6 @@ void GLViewImpl::setFrameSize(float width, float height)
     updateFrameSize();
 }
 
-void GLViewImpl::setViewPortInPoints(float x , float y , float w , float h)
-{
-    experimental::Viewport vp((float)(x * _scaleX * _retinaFactor * _frameZoomFactor + _viewPortRect.origin.x * _retinaFactor * _frameZoomFactor),
-        (float)(y * _scaleY * _retinaFactor  * _frameZoomFactor + _viewPortRect.origin.y * _retinaFactor * _frameZoomFactor),
-        (float)(w * _scaleX * _retinaFactor * _frameZoomFactor),
-        (float)(h * _scaleY * _retinaFactor * _frameZoomFactor));
-    Camera::setDefaultViewport(vp);
-}
-
 void GLViewImpl::setScissorInPoints(float x , float y , float w , float h)
 {
     glScissor((GLint)(x * _scaleX * _retinaFactor * _frameZoomFactor + _viewPortRect.origin.x * _retinaFactor * _frameZoomFactor),
@@ -751,7 +742,6 @@ void GLViewImpl::onGLFWCharCallback(GLFWwindow *window, unsigned int character)
 
 void GLViewImpl::onGLFWWindowPosCallback(GLFWwindow *windows, int x, int y)
 {
-    Director::getInstance()->setViewport();
 }
 
 void GLViewImpl::onGLFWframebuffersize(GLFWwindow* window, int w, int h)
@@ -790,7 +780,6 @@ void GLViewImpl::onGLFWWindowSizeFunCallback(GLFWwindow *window, int width, int 
     setFrameSize(frameWidth, frameHeight);
     
     updateDesignResolutionSize();
-    Director::getInstance()->setViewport();
 }
 
 void GLViewImpl::onGLFWWindowIconifyCallback(GLFWwindow* window, int iconified)

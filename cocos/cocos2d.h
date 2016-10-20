@@ -176,7 +176,6 @@ THE SOFTWARE.
 #include "renderer/CCTechnique.h"
 #include "renderer/CCPass.h"
 #include "renderer/CCRenderState.h"
-#include "renderer/CCFrameBuffer.h"
 #include "renderer/ccGLStateCache.h"
 #include "renderer/ccShaders.h"
 

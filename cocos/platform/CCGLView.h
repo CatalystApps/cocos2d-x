@@ -251,16 +251,6 @@ public:
     virtual const Size&  getDesignResolutionSize() const;
 
     /**
-     * Set opengl view port rectangle with points.
-     *
-     * @param x Set the points of x.
-     * @param y Set the points of y.
-     * @param w Set the width of  the view port
-     * @param h Set the Height of the view port.
-     */
-    virtual void setViewPortInPoints(float x , float y , float w , float h);
-
-    /**
      * Set Scissor rectangle with points.
      *
      * @param x Set the points of x.

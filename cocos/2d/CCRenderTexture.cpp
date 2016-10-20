@@ -652,14 +652,11 @@ void RenderTexture::onEnd()
 
     glBindFramebuffer(GL_FRAMEBUFFER, _oldFBO);
 
-    // restore viewport
-    director->setViewport();
-    const auto& vp = Camera::getDefaultViewport();
-    glViewport(vp._left, vp._bottom, vp._width, vp._height);
-    //
+    const auto& size = director->getViewportSize();
+    glViewport(0, 0, size.width, size.height);
+    
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, _oldProjMatrix);
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, _oldTransMatrix);
-
 }
 
 void RenderTexture::onClear()
