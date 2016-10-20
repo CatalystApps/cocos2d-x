@@ -39,7 +39,7 @@ private:
     unsigned int m_frame_height;
     unsigned int m_frame_buffer_id;
     unsigned int m_render_buffer_id;
-    std::tuple<float, float, float, float> m_clear_color;
+    float m_clear_color[4];
     
     unsigned int m_vbo_id;
     unsigned int m_ibo_id;

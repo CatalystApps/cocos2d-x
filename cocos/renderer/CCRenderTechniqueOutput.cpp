@@ -17,7 +17,7 @@ CCRenderTechniqueOutput::CCRenderTechniqueOutput(unsigned int width, unsigned in
     m_frame_height = height;
     m_frame_buffer_id = frame_buffer_id;
     m_render_buffer_id = render_buffer_id;
-    m_clear_color = std::make_tuple(0.f, 0.f, 0.f, 1.f);
+    m_clear_color[0] = 0.f; m_clear_color[1] = 0.f; m_clear_color[2] = 0.f; m_clear_color[3] = 1.f;
     
     std::string vertexShaderSource = "attribute vec3 a_position; \
     attribute vec2 a_texcoord; \
@@ -167,7 +167,7 @@ void CCRenderTechniqueOutput::bind()
     glDepthMask(GL_FALSE);
     glDisable(GL_STENCIL_TEST);
     
-    glClearColor(std::get<0>(m_clear_color), std::get<1>(m_clear_color), std::get<2>(m_clear_color), std::get<3>(m_clear_color));
+    glClearColor(m_clear_color[0], m_clear_color[1], m_clear_color[2], m_clear_color[3]);
     glClear(GL_COLOR_BUFFER_BIT);
     
     glUseProgram(m_shader_id);
