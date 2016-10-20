@@ -1000,9 +1000,6 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="..\base\CCNinePatchImageParser.cpp" />
-    <ClCompile Include="..\renderer\CCFrameBuffer.cpp">
-      <Filter>renderer</Filter>
-    </ClCompile>
     <ClCompile Include="CCAutoPolygon.cpp">
       <Filter>2d</Filter>
     </ClCompile>
@@ -1043,6 +1040,12 @@
     </ClCompile>
     <ClCompile Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizerFactory.cpp">
       <Filter>extension\CCGestureRecognizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderer\CCRenderTechniqueOutput.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderer\CCRenderTechniqueWS.cpp">
+      <Filter>renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2028,9 +2031,6 @@
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="..\base\CCNinePatchImageParser.h" />
-    <ClInclude Include="..\renderer\CCFrameBuffer.h">
-      <Filter>renderer</Filter>
-    </ClInclude>
     <ClInclude Include="CCAutoPolygon.h">
       <Filter>2d</Filter>
     </ClInclude>
@@ -2080,6 +2080,12 @@
     </ClInclude>
     <ClInclude Include="..\..\extensions\CCGestureRecognizer\CCGestureRecognizerFactory.h">
       <Filter>extension\CCGestureRecognizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderer\CCRenderTechniqueOutput.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderer\CCRenderTechniqueWS.h">
+      <Filter>renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
