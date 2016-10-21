@@ -168,6 +168,12 @@ void CCRenderTechniqueOutput::setDepthAttachmentTexture(unsigned int depth_attac
     m_depth_attachment_texture = depth_attachment_texture;
 }
 
+void CCRenderTechniqueOutput::resizeFrame(unsigned int width, unsigned int height)
+{
+    m_frame_width = width;
+    m_frame_height = height;
+}
+
 void CCRenderTechniqueOutput::bind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_frame_buffer_id);

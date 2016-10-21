@@ -652,7 +652,7 @@ void RenderTexture::onEnd()
 
     glBindFramebuffer(GL_FRAMEBUFFER, _oldFBO);
 
-    const auto& size = director->getViewportSize();
+    const auto& size = director->getViewportWSSize();
     glViewport(0, 0, size.width, size.height);
     
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, _oldProjMatrix);

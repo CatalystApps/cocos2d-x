@@ -376,7 +376,10 @@ public:
      */
     void setClearColor(const Color4F& clearColor);
     
-    inline Size getViewportSize() const { return m_viewportSize; }
+    inline Size getViewportWSSize() const { return m_viewportWSSize; }
+    
+    Size getViewportOutputSize() const;
+    void setViewportOutputSize(const Size& size);
 
     /** Enables/disables OpenGL depth test. */
     void setDepthTest(bool on);
@@ -605,7 +608,7 @@ protected:
     
     CCRenderTechniqueOutput *m_renderTechniqueOutput;
     CCRenderTechniqueWS *m_renderTechniqueWS;
-    Size m_viewportSize;
+    Size m_viewportWSSize;
 
     /* Console for the director */
     Console *_console;

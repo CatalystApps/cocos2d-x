@@ -73,6 +73,11 @@ public:
     void setColorAttachmentTexture(unsigned int color_attachment_texture);
     void setDepthAttachmentTexture(unsigned int depth_attachment_texture);
     
+    void resizeFrame(unsigned int width, unsigned int height);
+    
+    inline unsigned int getFrameWidth() const { return m_frame_width; }
+    inline unsigned int getFrameHeight() const { return m_frame_height; }
+    
     void bind();
     void draw();
     void unbind();

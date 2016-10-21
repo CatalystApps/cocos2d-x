@@ -420,18 +420,9 @@ void Director::setOpenGLView(GLView *openGLView)
             int osRenderBuffer = -1;
             glGetIntegerv(GL_RENDERBUFFER_BINDING, &osRenderBuffer);
             
-            int WSWidth = _openGLView->getFrameSize().width;
-            int WSHeight = _openGLView->getFrameSize().height;
-            
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-            
-            if(_openGLView->isRetinaDisplay())
-            {
-                WSWidth *= 2;
-                WSHeight *= 2;
-            }
-#endif
-            m_renderTechniqueOutput = new CCRenderTechniqueOutput(WSWidth, WSHeight, osFrameBuffer, osRenderBuffer);
+            m_renderTechniqueOutput = new CCRenderTechniqueOutput(_openGLView->getFrameSize().width,
+                                                                  _openGLView->getFrameSize().height,
+                                                                  osFrameBuffer, osRenderBuffer);
             m_renderTechniqueOutput->retain();
         }
         
@@ -449,7 +440,7 @@ void Director::setOpenGLView(GLView *openGLView)
 #endif
             m_renderTechniqueWS = new CCRenderTechniqueWS(WSWidth, WSHeight);
             m_renderTechniqueWS->retain();
-            m_viewportSize = Size(WSWidth, WSHeight);
+            m_viewportWSSize = Size(WSWidth, WSHeight);
         }
     }
 }
@@ -1337,6 +1328,20 @@ void Director::setEventDispatcher(EventDispatcher* dispatcher)
         CC_SAFE_RETAIN(dispatcher);
         CC_SAFE_RELEASE(_eventDispatcher);
         _eventDispatcher = dispatcher;
+    }
+}
+
+Size Director::getViewportOutputSize() const
+{
+    return Size(m_renderTechniqueOutput->getFrameWidth(),
+                m_renderTechniqueOutput->getFrameHeight());
+}
+
+void Director::setViewportOutputSize(const Size& size)
+{
+    if(m_renderTechniqueOutput)
+    {
+        m_renderTechniqueOutput->resizeFrame(size.width, size.height);
     }
 }
 

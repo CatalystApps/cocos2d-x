@@ -239,7 +239,7 @@ void GridBase::afterDraw(cocos2d::Node *target)
     Director *director = Director::getInstance();
     director->setProjection(_directorProjection);
 
-    const auto& size = director->getViewportSize();
+    const auto& size = director->getViewportWSSize();
     glViewport(0, 0, size.width, size.height);
     GL::bindTexture2D(_texture->getName());
 

@@ -556,6 +556,9 @@ void GLViewImpl::updateFrameSize()
 
         int frameBufferW = 0, frameBufferH = 0;
         glfwGetFramebufferSize(_mainWindow, &frameBufferW, &frameBufferH);
+        
+        int windowWidth = w;
+        int windowHeight = h;
 
         if (frameBufferW == 2 * w && frameBufferH == 2 * h)
         {
@@ -567,7 +570,9 @@ void GLViewImpl::updateFrameSize()
             {
                 _retinaFactor = 2;
             }
-            glfwSetWindowSize(_mainWindow, _screenSize.width/2 * _retinaFactor * _frameZoomFactor, _screenSize.height/2 * _retinaFactor * _frameZoomFactor);
+            windowWidth = _screenSize.width/2 * _retinaFactor * _frameZoomFactor;
+            windowHeight = _screenSize.height/2 * _retinaFactor * _frameZoomFactor;
+            glfwSetWindowSize(_mainWindow, windowWidth, windowHeight);
 
             _isInRetinaMonitor = true;
         }
@@ -578,10 +583,14 @@ void GLViewImpl::updateFrameSize()
                 _retinaFactor = 1;
             }
 #if !WITH_EDITOR
-            glfwSetWindowSize(_mainWindow, _screenSize.width * _retinaFactor * _frameZoomFactor, _screenSize.height *_retinaFactor * _frameZoomFactor);
+            windowWidth = _screenSize.width * _retinaFactor * _frameZoomFactor;
+            windowHeight = _screenSize.height *_retinaFactor * _frameZoomFactor;
+            glfwSetWindowSize(_mainWindow, windowWidth, windowHeight);
 #endif
             _isInRetinaMonitor = false;
         }
+        Director::getInstance()->setViewportOutputSize(Size(windowWidth * _retinaFactor,
+                                                            windowHeight * _retinaFactor));
     }
 }
 
@@ -750,6 +759,9 @@ void GLViewImpl::onGLFWframebuffersize(GLFWwindow* window, int w, int h)
     float frameSizeH = _screenSize.height;
     float factorX = frameSizeW / w * _retinaFactor * _frameZoomFactor;
     float factorY = frameSizeH / h * _retinaFactor * _frameZoomFactor;
+    
+    int windowWidth = frameSizeW;
+    int windowHeight = frameSizeH;
 
     if (fabs(factorX - 0.5f) < FLT_EPSILON && fabs(factorY - 0.5f) < FLT_EPSILON )
     {
@@ -762,15 +774,21 @@ void GLViewImpl::onGLFWframebuffersize(GLFWwindow* window, int w, int h)
         {
             _retinaFactor = 2;
         }
-
-        glfwSetWindowSize(window, static_cast<int>(frameSizeW * 0.5f * _retinaFactor * _frameZoomFactor) , static_cast<int>(frameSizeH * 0.5f * _retinaFactor * _frameZoomFactor));
+        windowWidth = static_cast<int>(frameSizeW * 0.5f * _retinaFactor * _frameZoomFactor);
+        windowHeight = static_cast<int>(frameSizeH * 0.5f * _retinaFactor * _frameZoomFactor);
+        glfwSetWindowSize(window, windowWidth, windowHeight);
     }
     else if(fabs(factorX - 2.0f) < FLT_EPSILON && fabs(factorY - 2.0f) < FLT_EPSILON)
     {
         _isInRetinaMonitor = false;
         _retinaFactor = 1;
-        glfwSetWindowSize(window, static_cast<int>(frameSizeW * _retinaFactor * _frameZoomFactor), static_cast<int>(frameSizeH * _retinaFactor * _frameZoomFactor));
+        
+        windowWidth = static_cast<int>(frameSizeW * _retinaFactor * _frameZoomFactor);
+        windowHeight = static_cast<int>(frameSizeH * _retinaFactor * _frameZoomFactor);
+        glfwSetWindowSize(window, windowWidth, windowHeight);
     }
+    Director::getInstance()->setViewportOutputSize(Size(windowWidth * _retinaFactor,
+                                                        windowHeight * _retinaFactor));
 }
 
 void GLViewImpl::onGLFWWindowSizeFunCallback(GLFWwindow *window, int width, int height)
