@@ -609,9 +609,6 @@ void Renderer::visitRenderQueue(RenderQueue& queue)
 
 void Renderer::render()
 {
-    //Uncomment this once everything is rendered by new renderer
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     //TODO: setup camera or MVP
     _isRendering = true;
     
@@ -634,11 +631,6 @@ void Renderer::clean()
     // Clear render group
     for (size_t j = 0 ; j < _renderGroups.size(); j++)
     {
-        //commands are owned by nodes
-        // for (const auto &cmd : _renderGroups[j])
-        // {
-        //     cmd->releaseToCommandPool();
-        // }
         _renderGroups[j].clear();
     }
 
@@ -651,12 +643,6 @@ void Renderer::clean()
 
 void Renderer::clear()
 {
-    //Enable Depth mask to make sure glClear clear the depth buffer correctly
-    glDepthMask(true);
-    glClearColor(_clearColor.r, _clearColor.g, _clearColor.b, _clearColor.a);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glDepthMask(false);
-
     RenderState::StateBlock::_defaultState->setDepthWrite(false);
 }
 
@@ -670,8 +656,6 @@ void Renderer::setDepthTest(bool enable)
 
         RenderState::StateBlock::_defaultState->setDepthTest(true);
         RenderState::StateBlock::_defaultState->setDepthFunction(RenderState::DEPTH_LEQUAL);
-
-//        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     }
     else
     {

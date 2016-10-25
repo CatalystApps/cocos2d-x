@@ -92,6 +92,11 @@ void deleteProgram( GLuint program )
 
     glDeleteProgram( program );
 }
+    
+void invalidateProgram()
+{
+     s_currentShaderProgram = -1;
+}
 
 void useProgram( GLuint program )
 {

@@ -398,14 +398,6 @@ void Camera::setScene(Scene* scene)
     }
 }
 
-void Camera::clearBackground()
-{
-    if (_clearBrush)
-    {
-        _clearBrush->drawBackground(this);
-    }
-}
-
 int Camera::getRenderOrder() const
 {
     int result(0);

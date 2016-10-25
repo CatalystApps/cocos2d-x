@@ -235,10 +235,6 @@ public:
      * Get the default camera of the current running scene.
      */
     static Camera* getDefaultCamera();
-    /**
-     Before rendering scene with this camera, the background need to be cleared. It clears the depth buffer with max depth by default. Use setBackgroundBrush to modify the default behavior
-     */
-    void clearBackground();
     
     /**
      * Whether or not the viewprojection matrix was updated since the last frame.
