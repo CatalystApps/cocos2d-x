@@ -133,11 +133,7 @@ void CCLongPressGestureRecognizer::timerDidEnd(float dt)
     longPress->cancelPropagation = cancelsTouchesInView;
     
     gestureRecognized(longPress);
-    /*if (longPress->cancelPropagation)
-    {
-        stopTouchesPropagation(currEvent); //cancel touch over other views
-    }
-    stopGestureRecognition();*/
+    stopGestureRecognition();
 }
 
 NS_CC_EXT_END
