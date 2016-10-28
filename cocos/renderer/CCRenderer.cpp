@@ -609,9 +609,6 @@ void Renderer::visitRenderQueue(RenderQueue& queue)
 
 void Renderer::render()
 {
-    //Uncomment this once everything is rendered by new renderer
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     //TODO: setup camera or MVP
     _isRendering = true;
     
@@ -634,11 +631,6 @@ void Renderer::clean()
     // Clear render group
     for (size_t j = 0 ; j < _renderGroups.size(); j++)
     {
-        //commands are owned by nodes
-        // for (const auto &cmd : _renderGroups[j])
-        // {
-        //     cmd->releaseToCommandPool();
-        // }
         _renderGroups[j].clear();
     }
 
@@ -651,12 +643,6 @@ void Renderer::clean()
 
 void Renderer::clear()
 {
-    //Enable Depth mask to make sure glClear clear the depth buffer correctly
-    glDepthMask(true);
-    glClearColor(_clearColor.r, _clearColor.g, _clearColor.b, _clearColor.a);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glDepthMask(false);
-
     RenderState::StateBlock::_defaultState->setDepthWrite(false);
 }
 
@@ -670,8 +656,6 @@ void Renderer::setDepthTest(bool enable)
 
         RenderState::StateBlock::_defaultState->setDepthTest(true);
         RenderState::StateBlock::_defaultState->setDepthFunction(RenderState::DEPTH_LEQUAL);
-
-//        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     }
     else
     {
@@ -778,21 +762,21 @@ void Renderer::drawBatchedTriangles()
 //        glBufferSubData(GL_ARRAY_BUFFER, sizeof(_quads[0])*start, sizeof(_quads[0]) * n , &_quads[start] );
 
         // option 2: data
-//        glBufferData(GL_ARRAY_BUFFER, sizeof(_verts[0]) * _filledVertex, _verts, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(_verts[0]) * _filledVertex, _verts, GL_DYNAMIC_DRAW);
 
         // option 3: orphaning + glMapBuffer
         // FIXME: in order to work as fast as possible, it must "and the exact same size and usage hints it had before."
         //  source: https://www.opengl.org/wiki/Buffer_Object_Streaming#Explicit_multiple_buffering
         // so most probably we won't have any benefit of using it
-        glBufferData(GL_ARRAY_BUFFER, sizeof(_verts[0]) * _filledVertex, nullptr, GL_STATIC_DRAW);
-        void *buf = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-        memcpy(buf, _verts, sizeof(_verts[0]) * _filledVertex);
-        glUnmapBuffer(GL_ARRAY_BUFFER);
+        //glBufferData(GL_ARRAY_BUFFER, sizeof(_verts[0]) * _filledVertex, nullptr, GL_STATIC_DRAW);
+        //void *buf = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+        //memcpy(buf, _verts, sizeof(_verts[0]) * _filledVertex);
+        //glUnmapBuffer(GL_ARRAY_BUFFER);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _buffersVBO[1]);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _filledIndex, _indices, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _filledIndex, _indices, GL_DYNAMIC_DRAW);
     }
     else
     {

@@ -68,6 +68,7 @@ enum {
     kShaderType_3DSkyBox,
     kShaderType_3DTerrain,
     kShaderType_CameraClear,
+    kShaderType_TechniqueOutput,
     kShaderType_MAX,
 };
 
@@ -276,6 +277,10 @@ void GLProgramCache::loadDefaultGLPrograms()
     p = new (std::nothrow) GLProgram();
     loadDefaultGLProgram(p, kShaderType_CameraClear);
     _programs.insert(std::make_pair(GLProgram::SHADER_CAMERA_CLEAR, p));
+    
+    p = new (std::nothrow) GLProgram();
+    loadDefaultGLProgram(p, kShaderType_TechniqueOutput);
+    _programs.insert(std::make_pair(GLProgram::SHADER_TECHNIQUE_OUTPUT, p));
 }
 
 void GLProgramCache::reloadDefaultGLPrograms()
@@ -559,6 +564,9 @@ void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
             break;
         case kShaderType_CameraClear:
             p->initWithByteArrays(ccCameraClearVert, ccCameraClearFrag);
+            break;
+        case kShaderType_TechniqueOutput:
+            p->initWithByteArrays(ccTechniqueOutputVert, ccTechniqueOutputFrag);
             break;
         default:
             CCLOG("cocos2d: %s:%d, error shader type", __FUNCTION__, __LINE__);

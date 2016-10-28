@@ -31,8 +31,11 @@ THE SOFTWARE.
 NS_CC_BEGIN
 //
 
-#include "ccShader_Position_uColor.frag"
+#include "ccShader_TechniqueOutput.frag"
+#include "ccShader_TechniqueOutput.vert"
 
+//
+#include "ccShader_Position_uColor.frag"
 #include "ccShader_Position_uColor.vert"
 
 //

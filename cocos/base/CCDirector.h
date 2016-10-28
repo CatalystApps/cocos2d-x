@@ -38,6 +38,8 @@ THE SOFTWARE.
 #include "math/CCMath.h"
 #include "platform/CCGL.h"
 #include "platform/CCGLView.h"
+#include "renderer/CCRenderTechniqueWS.h"
+#include "renderer/CCRenderTechniqueOutput.h"
 
 NS_CC_BEGIN
 
@@ -59,12 +61,7 @@ class EventListenerCustom;
 class TextureCache;
 class Renderer;
 class Camera;
-
 class Console;
-namespace experimental
-{
-    class FrameBuffer;
-}
 
 /**
  * @brief Matrix stack type.
@@ -206,9 +203,6 @@ public:
     inline Projection getProjection() { return _projection; }
     /** Sets OpenGL projection. */
     void setProjection(Projection projection);
-    
-    /** Sets the glViewport.*/
-    void setViewport();
 
     /** How many frames were called since the director started */
     
@@ -381,6 +375,11 @@ public:
      * @js NA
      */
     void setClearColor(const Color4F& clearColor);
+    
+    inline Size getViewportWSSize() const { return m_viewportWSSize; }
+    
+    Size getViewportOutputSize() const;
+    void setViewportOutputSize(const Size& size);
 
     /** Enables/disables OpenGL depth test. */
     void setDepthTest(bool on);
@@ -607,8 +606,9 @@ protected:
     /* Renderer for the Director */
     Renderer *_renderer;
     
-    /* Default FrameBufferObject*/
-    experimental::FrameBuffer* _defaultFBO;
+    CCRenderTechniqueOutput *m_renderTechniqueOutput;
+    CCRenderTechniqueWS *m_renderTechniqueWS;
+    Size m_viewportWSSize;
 
     /* Console for the director */
     Console *_console;

@@ -177,6 +177,8 @@ renderer/CCPrimitiveCommand.cpp \
 renderer/CCQuadCommand.cpp \
 renderer/CCRenderCommand.cpp \
 renderer/CCRenderState.cpp \
+renderer/CCRenderTechniqueOutput.cpp \
+renderer/CCRenderTechniqueWS.cpp \
 renderer/CCRenderer.cpp \
 renderer/CCTechnique.cpp \
 renderer/CCTexture2D.cpp \
@@ -188,7 +190,6 @@ renderer/CCVertexAttribBinding.cpp \
 renderer/CCVertexIndexBuffer.cpp \
 renderer/CCVertexIndexData.cpp \
 renderer/ccGLStateCache.cpp \
-renderer/CCFrameBuffer.cpp \
 renderer/ccShaders.cpp \
 deprecated/CCArray.cpp \
 deprecated/CCDeprecated.cpp \

@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "3d/CCFrustum.h"
 #include "renderer/CCQuadCommand.h"
 #include "renderer/CCCustomCommand.h"
-#include "renderer/CCFrameBuffer.h"
 
 NS_CC_BEGIN
 
@@ -236,22 +235,6 @@ public:
      * Get the default camera of the current running scene.
      */
     static Camera* getDefaultCamera();
-    /**
-     Before rendering scene with this camera, the background need to be cleared. It clears the depth buffer with max depth by default. Use setBackgroundBrush to modify the default behavior
-     */
-    void clearBackground();
-    /**
-     Apply the FBO, RenderTargets and viewport.
-     */
-    void apply();
-    /**
-     Set FBO, which will attach several render target for the rendered result.
-    */
-    void setFrameBufferObject(experimental::FrameBuffer* fbo);
-    /**
-     Set Viewport for camera.
-     */
-    void setViewport(const experimental::Viewport& vp) { _viewport = vp; }
     
     /**
      * Whether or not the viewprojection matrix was updated since the last frame.
@@ -290,8 +273,7 @@ CC_CONSTRUCTOR_ACCESS:
     bool initDefault();
     bool initPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
     bool initOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane);
-    void applyFrameBufferObject();
-    void applyViewport();
+
 protected:
 
     Scene* _scene; //Scene camera belongs to
@@ -316,14 +298,6 @@ protected:
     
     CameraBackgroundBrush* _clearBrush; //brush used to clear the back ground
     
-    experimental::Viewport _viewport;
-    
-    experimental::FrameBuffer* _fbo;
-protected:
-    static experimental::Viewport _defaultViewport;
-public:
-    static const experimental::Viewport& getDefaultViewport() { return _defaultViewport; }
-    static void setDefaultViewport(const experimental::Viewport& vp) { _defaultViewport = vp; }
 };
 
 NS_CC_END

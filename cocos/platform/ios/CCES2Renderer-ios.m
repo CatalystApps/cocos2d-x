@@ -145,7 +145,7 @@
 
     CHECK_GL_ERROR();
 
-    if (depthFormat_)
+    /*if (depthFormat_)
     {
         if( ! depthBuffer_ ) {
             glGenRenderbuffers(1, &depthBuffer_);
@@ -167,7 +167,7 @@
 
         // bind color buffer
         glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer_);        
-    }
+    }*/
 
     CHECK_GL_ERROR();
 

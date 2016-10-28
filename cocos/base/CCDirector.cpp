@@ -48,7 +48,6 @@ THE SOFTWARE.
 #include "renderer/ccGLStateCache.h"
 #include "renderer/CCRenderer.h"
 #include "renderer/CCRenderState.h"
-#include "renderer/CCFrameBuffer.h"
 #include "2d/CCCamera.h"
 #include "base/CCUserDefault.h"
 #include "base/ccFPSImages.h"
@@ -74,6 +73,10 @@ THE SOFTWARE.
 #ifndef CC_DIRECTOR_STATS_POSITION
 #define CC_DIRECTOR_STATS_POSITION Director::getInstance()->getVisibleOrigin()
 #endif // CC_DIRECTOR_STATS_POSITION
+
+#define CC_ENABLE_CUSTOM_RESOLUTION 1
+#define CC_MAX_RESOLUTION_WIDTH 1334
+#define CC_MAX_RESOLUTION_HEIGHT 750
 
 using namespace std;
 
@@ -142,7 +145,6 @@ bool Director::init(void)
     _winSizeInPoints = Size::ZERO;
 
     _openGLView = nullptr;
-    _defaultFBO = nullptr;
     
     _contentScaleFactor = 1.0f;
 
@@ -171,6 +173,9 @@ bool Director::init(void)
 
     _renderer = new (std::nothrow) Renderer;
     RenderState::initialize();
+    
+    m_renderTechniqueOutput = nullptr;
+    m_renderTechniqueWS = nullptr;
 
     return true;
 }
@@ -187,7 +192,6 @@ Director::~Director(void)
     CC_SAFE_RELEASE(_notificationNode);
     CC_SAFE_RELEASE(_scheduler);
     CC_SAFE_RELEASE(_actionManager);
-    CC_SAFE_DELETE(_defaultFBO);
     
     delete _eventBeforeUpdate;
     delete _eventAfterUpdate;
@@ -276,7 +280,7 @@ void Director::drawScene()
     }
 
     _renderer->clear();
-    experimental::FrameBuffer::clearAllFBOs();
+    m_renderTechniqueWS->bind();
     /* to avoid flickr, nextScene MUST be here: after tick and before draw.
      * FIXME: Which bug is this one. It seems that it can't be reproduced with v0.9
      */
@@ -318,6 +322,11 @@ void Director::drawScene()
     popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 
     _totalFrames++;
+    
+    m_renderTechniqueOutput->setColorAttachmentTexture(m_renderTechniqueWS->getColorAttachmentTexture());
+    m_renderTechniqueOutput->bind();
+    m_renderTechniqueOutput->draw();
+    m_renderTechniqueOutput->unbind();
 
     // swap buffers
     if (_openGLView)
@@ -403,8 +412,36 @@ void Director::setOpenGLView(GLView *openGLView)
             _eventDispatcher->setEnabled(true);
         }
         
-        _defaultFBO = experimental::FrameBuffer::getOrCreateDefaultFBO(_openGLView);
-        _defaultFBO->retain();
+        if(!m_renderTechniqueOutput)
+        {
+            int osFrameBuffer = -1;
+            glGetIntegerv(GL_FRAMEBUFFER_BINDING, &osFrameBuffer);
+            
+            int osRenderBuffer = -1;
+            glGetIntegerv(GL_RENDERBUFFER_BINDING, &osRenderBuffer);
+            
+            m_renderTechniqueOutput = new CCRenderTechniqueOutput(_openGLView->getFrameSize().width,
+                                                                  _openGLView->getFrameSize().height,
+                                                                  osFrameBuffer, osRenderBuffer);
+            m_renderTechniqueOutput->retain();
+        }
+        
+        
+        if(!m_renderTechniqueWS)
+        {
+            int WSWidth = _openGLView->getFrameSize().width;
+            int WSHeight = _openGLView->getFrameSize().height;
+#if defined(CC_ENABLE_CUSTOM_RESOLUTION)
+            if(WSWidth > CC_MAX_RESOLUTION_WIDTH || WSHeight > CC_MAX_RESOLUTION_HEIGHT)
+            {
+                WSWidth = CC_MAX_RESOLUTION_WIDTH;
+                WSHeight = CC_MAX_RESOLUTION_HEIGHT;
+            }
+#endif
+            m_renderTechniqueWS = new CCRenderTechniqueWS(WSWidth, WSHeight);
+            m_renderTechniqueWS->retain();
+            m_viewportWSSize = Size(WSWidth, WSHeight);
+        }
     }
 }
 
@@ -424,14 +461,6 @@ void Director::destroyTextureCache()
     {
         _textureCache->waitForQuit();
         CC_SAFE_RELEASE_NULL(_textureCache);
-    }
-}
-
-void Director::setViewport()
-{
-    if (_openGLView)
-    {
-        _openGLView->setViewPortInPoints(0, 0, _winSizeInPoints.width, _winSizeInPoints.height);
     }
 }
 
@@ -596,8 +625,6 @@ void Director::setProjection(Projection projection)
 {
     Size size = _winSizeInPoints;
 
-    setViewport();
-
     switch (projection)
     {
         case Projection::_2D:
@@ -692,9 +719,6 @@ void Director::setDepthTest(bool on)
 void Director::setClearColor(const Color4F& clearColor)
 {
     _renderer->setClearColor(clearColor);
-    auto defaultFBO = experimental::FrameBuffer::getOrCreateDefaultFBO(_openGLView);
-    
-    if(defaultFBO) defaultFBO->setClearColor(clearColor);
 }
 
 static void GLToClipTransform(Mat4 *transformOut)
@@ -1304,6 +1328,20 @@ void Director::setEventDispatcher(EventDispatcher* dispatcher)
         CC_SAFE_RETAIN(dispatcher);
         CC_SAFE_RELEASE(_eventDispatcher);
         _eventDispatcher = dispatcher;
+    }
+}
+
+Size Director::getViewportOutputSize() const
+{
+    return Size(m_renderTechniqueOutput->getFrameWidth(),
+                m_renderTechniqueOutput->getFrameHeight());
+}
+
+void Director::setViewportOutputSize(const Size& size)
+{
+    if(m_renderTechniqueOutput)
+    {
+        m_renderTechniqueOutput->resizeFrame(size.width, size.height);
     }
 }
 

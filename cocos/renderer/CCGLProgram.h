@@ -258,7 +258,13 @@ public:
      Built in shader for camera clear
      */
     static const char* SHADER_CAMERA_CLEAR;
+     
     /**
+    Built in shader for camera clear
+    */
+    static const char* SHADER_TECHNIQUE_OUTPUT;
+    /**
+     
     end of built shader types.
     @}
     */
