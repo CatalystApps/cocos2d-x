@@ -53,7 +53,6 @@ protected:
 private:
     cocos2d::Point origLocation, currLocation;
     cocos2d::Touch * currTouch;
-    cocos2d::Event * currEvent;
     
     void stopGestureRecognition();
 
