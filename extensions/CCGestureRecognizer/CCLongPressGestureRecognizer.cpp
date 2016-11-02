@@ -25,7 +25,7 @@ THE SOFTWARE.
 NS_CC_EXT_BEGIN
 
 const float CCLongPressGestureRecognizer::kLongPressMinDuration = 0.5f;
-const float CCLongPressGestureRecognizer::kLongPressDistanceTolerance = 20.0f;
+const float CCLongPressGestureRecognizer::kLongPressDistanceTolerance = 5.0f;
 
 bool CCLongPressGestureRecognizer::init()
 {
