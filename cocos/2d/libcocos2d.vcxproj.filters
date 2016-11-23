@@ -2027,9 +2027,6 @@
     <ClInclude Include="..\base\CCNinePatchImageParser.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="..\base\CCStencilStateManager.h">
-      <Filter>base</Filter>
-    </ClInclude>
     <ClInclude Include="..\base\CCNinePatchImageParser.h" />
     <ClInclude Include="CCAutoPolygon.h">
       <Filter>2d</Filter>
@@ -2086,6 +2083,9 @@
     </ClInclude>
     <ClInclude Include="..\renderer\CCRenderTechniqueWS.h">
       <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\base\CCStencilStateManager.hpp">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

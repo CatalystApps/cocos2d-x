@@ -934,7 +934,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\debug-lib\*.*" 
     <ClInclude Include="..\base\ccMacros.h" />
     <ClInclude Include="..\base\CCMap.h" />
     <ClInclude Include="..\base\CCNinePatchImageParser.h" />
-    <ClInclude Include="..\base\CCStencilStateManager.h" />
     <ClInclude Include="..\base\CCNS.h" />
     <ClInclude Include="..\base\CCProfiling.h" />
     <ClInclude Include="..\base\CCProperties.h" />
@@ -944,6 +943,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\debug-lib\*.*" 
     <ClInclude Include="..\base\CCRefPtr.h" />
     <ClInclude Include="..\base\CCScheduler.h" />
     <ClInclude Include="..\base\CCScriptSupport.h" />
+    <ClInclude Include="..\base\CCStencilStateManager.hpp" />
     <ClInclude Include="..\base\CCTouch.h" />
     <ClInclude Include="..\base\ccTypes.h" />
     <ClInclude Include="..\base\CCUserDefault.h" />
