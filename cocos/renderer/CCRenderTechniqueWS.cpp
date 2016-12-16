@@ -93,28 +93,30 @@ CCRenderTechniqueWS::CCRenderTechniqueWS(unsigned int width, unsigned int height
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depth_attachment_buffer);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER,  GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_stencil_attachment_buffer);
     }
-#endif
-
-    
-#if defined(CC_USE_DEPTH_TEXTURE)
-    
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_depth_attachment_texture, 0);
-#endif
-    
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depth_attachment_texture, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_depth_attachment_texture, 0);
-#endif
     
 #else
     
-    glGenRenderbuffers(1, &m_depth_attachment_buffer);
-    glBindRenderbuffer(GL_RENDERBUFFER, m_depth_attachment_buffer);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8,  m_frame_width, m_frame_height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depth_attachment_buffer);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depth_attachment_buffer);
-
+    #if defined(CC_USE_DEPTH_TEXTURE)
+    
+        #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_depth_attachment_texture, 0);
+        #endif
+    
+        #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depth_attachment_texture, 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_depth_attachment_texture, 0);
+        #endif
+    
+    #else
+    
+        glGenRenderbuffers(1, &m_depth_attachment_buffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, m_depth_attachment_buffer);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8,  m_frame_width, m_frame_height);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depth_attachment_buffer);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depth_attachment_buffer);
+    
+    #endif
+    
 #endif
     
     GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);

@@ -224,7 +224,15 @@ void CCRenderTechniqueOutput::draw()
 
 void CCRenderTechniqueOutput::unbind()
 {
-    glBindVertexArray(NULL);
+    if (cocos2d::Configuration::getInstance()->supportsShareableVAO())
+    {
+        glBindVertexArray(NULL);
+    }
+    else
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, NULL);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
+    }
     glUseProgram(NULL);
 }
 
