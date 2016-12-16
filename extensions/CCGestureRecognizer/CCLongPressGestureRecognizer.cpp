@@ -25,13 +25,12 @@ THE SOFTWARE.
 NS_CC_EXT_BEGIN
 
 const float CCLongPressGestureRecognizer::kLongPressMinDuration = 0.5f;
-const float CCLongPressGestureRecognizer::kLongPressDistanceTolerance = 20.0f;
+const float CCLongPressGestureRecognizer::kLongPressDistanceTolerance = 5.0f;
 
 bool CCLongPressGestureRecognizer::init()
 {
     isRecognizing = false;
     currTouch = NULL;
-    currEvent = NULL;
     
     setMinimumPressDuration(kLongPressMinDuration);
     
@@ -45,7 +44,8 @@ CCLongPressGestureRecognizer::~CCLongPressGestureRecognizer()
 
 bool CCLongPressGestureRecognizer::onTouchBegan(Touch * pTouch, Event * pEvent)
 {
-    if (isRecognizing) {
+    if (isRecognizing)
+    {
         stopGestureRecognition();
         return false;
     }
@@ -56,11 +56,8 @@ bool CCLongPressGestureRecognizer::onTouchBegan(Touch * pTouch, Event * pEvent)
     auto target = pEvent->getCurrentTarget();
 
     if (!isPointInNode(currLocation))
-    {
         return false;
-    }
 
-    currEvent = pEvent;
     currTouch = pTouch;
     
     CCLOG("SCHEDULED");
@@ -68,7 +65,7 @@ bool CCLongPressGestureRecognizer::onTouchBegan(Touch * pTouch, Event * pEvent)
     
     isRecognizing = true;
 
-    CCLongPress * longPress = CCLongPress::create();
+    CCLongPress* longPress = CCLongPress::create();
     longPress->location = currLocation;
     longPress->cancelPropagation = cancelsTouchesInView;
 
@@ -89,6 +86,9 @@ void CCLongPressGestureRecognizer::onTouchEnded(Touch * pTouch, Event * pEvent)
     longPress->cancelPropagation = cancelsTouchesInView;
 
     gestureEnded(longPress);
+
+    if (longPress->cancelPropagation && !isRecognizing) // stop propagation if gesture already has been recognized
+        stopTouchesPropagation(pEvent);
 
     stopGestureRecognition();
 }
@@ -113,7 +113,6 @@ void CCLongPressGestureRecognizer::stopGestureRecognition()
     if (!isRecognizing) return;
     
     currTouch = NULL;
-    currEvent = NULL;
     unschedule(schedule_selector(CCLongPressGestureRecognizer::timerDidEnd));
     isRecognizing = false;
 }
@@ -133,11 +132,7 @@ void CCLongPressGestureRecognizer::timerDidEnd(float dt)
     longPress->cancelPropagation = cancelsTouchesInView;
     
     gestureRecognized(longPress);
-    
-    if (longPress->cancelPropagation)
-    {
-        stopTouchesPropagation(currEvent);
-    }
+
     stopGestureRecognition();
 }
 
