@@ -868,6 +868,8 @@ bool Label::alignText()
         updateLabelLetters();
         
         updateColor();
+
+        computeTextBounds();
     }while (0);
 
     return ret;
@@ -1904,6 +1906,17 @@ void Label::computeStringNumLines()
     _numberOfLines = quantityOfLines;
 }
 
+void Label::computeTextBounds()
+{
+    for (int ctr = 0; ctr < _numberOfLines; ++ctr)
+    {
+        Rect lineBB = Rect(
+            _linesOffsetX[ctr], (_lineHeight + _lineSpacing) * ctr,
+            _linesWidth[ctr], _lineHeight);
+        _textBounds = _textBounds.unionWithRect(lineBB);
+    }
+}
+
 int Label::getStringNumLines()
 {
     if (_contentDirty)
@@ -2052,6 +2065,13 @@ Rect Label::getBoundingBox() const
     const_cast<Label*>(this)->getContentSize();
 
     return Node::getBoundingBox();
+}
+
+Rect Label::getTextBoundingBox() const
+{
+    const_cast<Label*>(this)->getContentSize();
+
+    return RectApplyAffineTransform(_textBounds, getNodeToParentAffineTransform());
 }
 
 void Label::setBlendFunc(const BlendFunc &blendFunc)

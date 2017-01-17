@@ -579,6 +579,7 @@ public:
 
     virtual const Size& getContentSize() const override;
     virtual Rect getBoundingBox() const override;
+    virtual Rect getTextBoundingBox() const;
 
     virtual void visit(Renderer *renderer, const Mat4 &parentTransform, uint32_t parentFlags) override;
     virtual void draw(Renderer *renderer, const Mat4 &transform, uint32_t flags) override;
@@ -644,6 +645,7 @@ protected:
     virtual void setFontAtlas(FontAtlas* atlas, bool distanceFieldEnabled = false, bool useA8Shader = false);
 
     void computeStringNumLines();
+    void computeTextBounds();
 
     void onDraw(const Mat4& transform, bool transformUpdated);
     void onDrawShadow(GLProgram* glProgram, const Color4F& shadowColor);
@@ -731,6 +733,8 @@ protected:
     float _letterOffsetY;
     float _tailoredTopY;
     float _tailoredBottomY;
+
+    Rect _textBounds;
 
     LabelEffect _currLabelEffect;
     Color4F _effectColorF;
