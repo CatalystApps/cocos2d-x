@@ -1908,13 +1908,46 @@ void Label::computeStringNumLines()
 
 void Label::computeTextBounds()
 {
-    for (int ctr = 0; ctr < _numberOfLines; ++ctr)
+    auto contentScaleFactor = CC_CONTENT_SCALE_FACTOR();
+    auto lineHeight = _lineHeight * _bmfontScale / contentScaleFactor;
+
+
+    float textMinX = std::numeric_limits<float>::max();
+    float textMaxX = std::numeric_limits<float>::min();
+
+    if (isHorizontalClamp())
     {
-        Rect lineBB = Rect(
-            _linesOffsetX[ctr], (_lineHeight + _lineSpacing) * ctr,
-            _linesWidth[ctr], _lineHeight);
-        _textBounds = _textBounds.unionWithRect(lineBB);
+        textMinX = 0.f;
+        textMaxX = _contentSize.width;
     }
+    else
+    {
+        for (int ctr = 0; ctr < _numberOfLines; ++ctr)
+        {
+            auto lineOffsetY = _letterOffsetY - (lineHeight + _lineSpacing) * ctr;
+
+            if (lineOffsetY <= 0.f) break;
+
+            textMinX = std::min(textMinX, _linesOffsetX[ctr]);
+            textMaxX = std::max(textMaxX, _linesOffsetX[ctr] + _linesWidth[ctr]);
+        }
+    }
+
+    float textMinY;
+    float textMaxY;
+
+    if (isVerticalClamp())
+    {
+        textMinY = 0.f;
+        textMaxY = _contentSize.height;
+    }
+    else
+    {
+        textMinY = _letterOffsetY - _textDesiredHeight;
+        textMaxY = _letterOffsetY;
+    }
+
+    _textBounds.setRect(textMinX, textMinY, textMaxX - textMinX, textMaxY - textMinY);
 }
 
 int Label::getStringNumLines()
