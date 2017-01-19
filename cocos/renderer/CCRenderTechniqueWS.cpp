@@ -8,6 +8,7 @@
 
 #include "CCRenderTechniqueWS.h"
 #include "base/CCConfiguration.h"
+#include "renderer/ccGLStateCache.h"
 
 NS_CC_BEGIN
 
@@ -18,7 +19,7 @@ CCRenderTechniqueWS::CCRenderTechniqueWS(unsigned int width, unsigned int height
     m_clear_color[0] = 0.f; m_clear_color[1] = 0.f; m_clear_color[2] = 0.f; m_clear_color[3] = 1.f;
     
     glGenTextures(1, &m_color_attachment_texture);
-    glBindTexture(GL_TEXTURE_2D, m_color_attachment_texture);
+    GL::bindTexture2D(m_color_attachment_texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -27,7 +28,7 @@ CCRenderTechniqueWS::CCRenderTechniqueWS(unsigned int width, unsigned int height
     
 #if defined(CC_USE_DEPTH_TEXTURE)
     glGenTextures(1, &m_depth_attachment_texture);
-    glBindTexture(GL_TEXTURE_2D, m_depth_attachment_texture);
+    GL::bindTexture2D(m_depth_attachment_texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

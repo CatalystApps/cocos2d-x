@@ -9,6 +9,7 @@
 #include "CCRenderTechniqueOutput.h"
 #include "CCGLProgramCache.h"
 #include "base/CCConfiguration.h"
+#include "renderer/ccGLStateCache.h"
 
 NS_CC_BEGIN
 
@@ -187,14 +188,13 @@ void CCRenderTechniqueOutput::bind()
     glClearColor(m_clear_color[0], m_clear_color[1], m_clear_color[2], m_clear_color[3]);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    glUseProgram(m_shader_id);
-    glActiveTexture(GL_TEXTURE0 + 0);
-    glBindTexture(GL_TEXTURE_2D, m_color_attachment_texture);
+    GL::useProgram(m_shader_id);
+    GL::bindTexture2D(m_color_attachment_texture);
     glUniform1i(m_samplers[e_shader_sampler_01], e_shader_sampler_01);
     
     if (cocos2d::Configuration::getInstance()->supportsShareableVAO())
     {
-        glBindVertexArray(m_vao_id);
+        GL::bindVAO(m_vao_id);
     }
     else
     {
@@ -226,14 +226,14 @@ void CCRenderTechniqueOutput::unbind()
 {
     if (cocos2d::Configuration::getInstance()->supportsShareableVAO())
     {
-        glBindVertexArray(NULL);
+        GL::bindVAO(NULL);
     }
     else
     {
         glBindBuffer(GL_ARRAY_BUFFER, NULL);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
     }
-    glUseProgram(NULL);
+    GL::useProgram(NULL);
 }
 
 NS_CC_END

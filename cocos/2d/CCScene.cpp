@@ -195,7 +195,10 @@ void Scene::render(Renderer* renderer)
         
         director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
         director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, Camera::_visitingCamera->getViewProjectionMatrix());
+        
         GL::invalidateProgram();
+        GL::invalidateTextures();
+        
         //visit the scene
         visit(renderer, transform, 0);
 #if CC_USE_NAVMESH

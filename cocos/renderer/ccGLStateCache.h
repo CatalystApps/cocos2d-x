@@ -83,6 +83,7 @@ void CC_DLL useProgram(GLuint program);
 void CC_DLL deleteProgram(GLuint program);
 
 void CC_DLL invalidateProgram();
+void CC_DLL invalidateTextures();
 
 /** 
  * Uses a blending function in case it not already used.

@@ -315,30 +315,6 @@ void Director::drawScene()
     {
         showStats();
     }
-    // Here is hardfix for bug
-    // Which is breaking rendering pipeline while no fps label preset on screen
-    // ************************************************************************
-    else
-    {
-        if (_FPSLabel == nullptr)
-        {
-            _FPSLabel = LabelAtlas::create();
-            _FPSLabel->retain();
-            
-            unsigned char *data = nullptr;
-            ssize_t dataLength = 0;
-            getFPSImageData(&data, &dataLength);
-            
-            Image* image = new (std::nothrow) Image();
-            image->initWithImageData(data, dataLength);
-            
-            _FPSLabel->initWithString("", _textureCache->addImage(image, "/cc_fps_images"), 12, 32 , '.');
-        }
-        
-        _FPSLabel->visit(_renderer, Mat4::IDENTITY, 0);
-    }
-    // ************************************************************************
-    // End of hardfix
     
     _renderer->render();
 

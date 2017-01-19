@@ -97,6 +97,14 @@ void invalidateProgram()
 {
      s_currentShaderProgram = -1;
 }
+    
+void CC_DLL invalidateTextures()
+{
+    for( int i=0; i < MAX_ACTIVE_TEXTURE; i++ )
+    {
+        s_currentBoundTexture[i] = -1;
+    }
+}
 
 void useProgram( GLuint program )
 {
