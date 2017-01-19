@@ -24,14 +24,15 @@
 
 
 #include "renderer/CCQuadCommand.h"
-
 #include "renderer/ccGLStateCache.h"
 #include "renderer/CCGLProgram.h"
 #include "renderer/CCMaterial.h"
 #include "renderer/CCTechnique.h"
 #include "renderer/CCRenderer.h"
 #include "renderer/CCPass.h"
-
+#include "base/CCDirector.h"
+#include "base/CCEventListenerCustom.h"
+#include "base/CCEventDispatcher.h"
 #include "xxhash.h"
 
 NS_CC_BEGIN
@@ -76,7 +77,24 @@ void QuadCommand::reIndex(int indicesCount)
     if (indicesCount > __indexCapacity)
     {
         CCLOG("cocos2d: QuadCommand: resizing index size from [%d] to [%d]", __indexCapacity, indicesCount);
-        __indices = (GLushort*) realloc(__indices, indicesCount * sizeof(__indices[0]));
+        auto tmpindices = __indices;
+        __indices = (GLushort*)malloc(indicesCount * sizeof(__indices[0]));
+        
+        void** holder = new void*();
+        EventListenerCustom* listener = cocos2d::Director::getInstance()->getEventDispatcher()->addCustomEventListener(cocos2d::Director::EVENT_AFTER_DRAW, [=](cocos2d::EventCustom *event) {
+            if (tmpindices)
+            {
+                free(tmpindices);
+            }
+            cocos2d::Director::getInstance()->getEventDispatcher()->removeEventListener((EventListener*)*holder);
+            
+            if (holder)
+            {
+                delete holder;
+            }
+        });
+        
+        *holder = listener;
         __indexCapacity = indicesCount;
     }
 
