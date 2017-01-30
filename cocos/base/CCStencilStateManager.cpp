@@ -196,7 +196,9 @@ void StencilStateManager::onBeforeVisit()
     
     // draw a fullscreen solid rectangle to clear the stencil buffer
     //ccDrawSolidRect(Vec2::ZERO, ccpFromSize([[Director sharedDirector] winSize]), Color4F(1, 1, 1, 1));
-    //drawFullScreenQuadClearStencil();
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    drawFullScreenQuadClearStencil();
+#endif
     glClear(GL_STENCIL_BUFFER_BIT);
     
     ///////////////////////////////////
