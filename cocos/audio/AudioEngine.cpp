@@ -182,8 +182,26 @@ bool AudioEngine::lazyInit()
     return true;
 }
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+
+bool AudioEngine::isExternalSoundsExist()
+{
+    return AudioEngineImpl::isExternalSoundsExist();
+}
+
+#endif
+
 int AudioEngine::play2d(const std::string& filePath, bool loop, float volume, const AudioProfile *profile)
 {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    
+    if(isExternalSoundsExist())
+    {
+        return AudioEngine::INVALID_AUDIO_ID;
+    }
+    
+#endif
+    
     int ret = AudioEngine::INVALID_AUDIO_ID;
 
     do {

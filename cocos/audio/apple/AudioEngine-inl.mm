@@ -93,27 +93,7 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
 
 -(void)handleInterruption:(NSNotification*)notification
 {
-    static bool resumeOnBecomingActive = false;
-    
-    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification]) {
-        NSInteger reason = [[[notification userInfo] objectForKey:AVAudioSessionInterruptionTypeKey] integerValue];
-        if (reason == AVAudioSessionInterruptionTypeBegan) {
-            alcMakeContextCurrent(NULL);
-        }
-        
-        if (reason == AVAudioSessionInterruptionTypeEnded) {
-            if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-                NSError *error = nil;
-                [[AVAudioSession sharedInstance] setActive:YES error:&error];
-                alcMakeContextCurrent(s_ALContext);
-            } else {
-                resumeOnBecomingActive = true;
-            }
-        }
-    }
-    
-    if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification] && resumeOnBecomingActive) {
-        resumeOnBecomingActive = false;
+    if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification] && ![self isExternalSoundsExist]) {
         NSError *error = nil;
         BOOL success = [[AVAudioSession sharedInstance]
                         setCategory: AVAudioSessionCategoryAmbient
@@ -134,9 +114,26 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
     
     [super dealloc];
 }
+
+- (bool)isExternalSoundsExist
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    
+    UInt32 isPlaying = 0;
+    UInt32 varSize = sizeof(isPlaying);
+    AudioSessionGetProperty (kAudioSessionProperty_OtherAudioIsPlaying, &varSize, &isPlaying);
+    return isPlaying != 0;
+    
+#else
+    
+    return 0
+    
+#endif
+}
+
 @end
 
-static id s_AudioEngineSessionHandler = nullptr;
+static id s_AudioEngineSessionHandler = [[AudioEngineSessionHandler alloc] init];;
 #endif
 
 AudioEngineImpl::AudioEngineImpl()
@@ -159,20 +156,12 @@ AudioEngineImpl::~AudioEngineImpl()
     if (s_ALDevice) {
         alcCloseDevice(s_ALDevice);
     }
-
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    [s_AudioEngineSessionHandler release];
-#endif
 }
 
 bool AudioEngineImpl::init()
 {
     bool ret = false;
-    do{
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-        s_AudioEngineSessionHandler = [[AudioEngineSessionHandler alloc] init];
-#endif
-        
+    do {
         s_ALDevice = alcOpenDevice(nullptr);
         
         if (s_ALDevice) {
@@ -198,6 +187,15 @@ bool AudioEngineImpl::init()
     return ret;
 }
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+
+bool AudioEngineImpl::isExternalSoundsExist()
+{
+    return [s_AudioEngineSessionHandler isExternalSoundsExist];
+}
+
+#endif
+
 AudioCache* AudioEngineImpl::preload(const std::string& filePath, std::function<void(bool)> callback)
 {
     AudioCache* audioCache = nullptr;
@@ -222,7 +220,8 @@ AudioCache* AudioEngineImpl::preload(const std::string& filePath, std::function<
 
 int AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float volume)
 {
-    if (s_ALDevice == nullptr) {
+    if (s_ALDevice == nullptr)
+    {
         return AudioEngine::INVALID_AUDIO_ID;
     }
     

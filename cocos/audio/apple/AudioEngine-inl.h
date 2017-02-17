@@ -64,6 +64,12 @@ public:
     AudioCache* preload(const std::string& filePath, std::function<void(bool)> callback);
     void update(float dt);
     
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    
+    static bool isExternalSoundsExist();
+    
+#endif
+    
 private:
     void _play2d(AudioCache *cache, int audioID);
     

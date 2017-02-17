@@ -292,6 +292,13 @@ public:
      * @param callback A callback which will be called after loading is finished.
      */
     static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback);
+    
+    
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    
+    static bool isExternalSoundsExist();
+    
+#endif
 
 protected:
     static void addTask(const std::function<void()>& task);
