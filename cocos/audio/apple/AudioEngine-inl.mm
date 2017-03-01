@@ -93,6 +93,29 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
 
 -(void)handleInterruption:(NSNotification*)notification
 {
+    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification])
+    {
+        NSInteger reason = [[[notification userInfo] objectForKey:AVAudioSessionInterruptionTypeKey] integerValue];
+        if (reason == AVAudioSessionInterruptionTypeBegan)
+        {
+            alcMakeContextCurrent(NULL);
+        }
+        else if (reason == AVAudioSessionInterruptionTypeEnded)
+        {
+            NSError *error = nil;
+            BOOL success = [[AVAudioSession sharedInstance]
+                            setCategory: AVAudioSessionCategoryAmbient
+                            error: &error];
+            if (!success)
+            {
+                printf("Fail to set audio session.\n");
+                return;
+            }
+            [[AVAudioSession sharedInstance] setActive:YES error:&error];
+            alcMakeContextCurrent(s_ALContext);
+        }
+    }
+    
     if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification] && ![self isExternalSoundsExist]) {
         NSError *error = nil;
         BOOL success = [[AVAudioSession sharedInstance]

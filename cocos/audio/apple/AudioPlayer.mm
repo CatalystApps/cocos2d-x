@@ -94,9 +94,9 @@ bool AudioPlayer::play2d(AudioCache* cache)
         }
     }
     else {
-        alGetError();
-        alGenBuffers(3, _bufferIds);
         auto alError = alGetError();
+        alGenBuffers(3, _bufferIds);
+        alError = alGetError();
         if (alError == AL_NO_ERROR) {
             for (int index = 0; index < QUEUEBUFFER_NUM; ++index) {
                 alBufferData(_bufferIds[index], _audioCache->_format, _audioCache->_queBuffers[index], _audioCache->_queBufferSize[index], _audioCache->_sampleRate);
@@ -124,8 +124,10 @@ bool AudioPlayer::play2d(AudioCache* cache)
             alSourcei(_alSource, AL_BUFFER, _audioCache->_alBufferId);
         }
         
-        alGetError();
-        alSourcePlay(_alSource);
+        auto alError = alGetError();
+        if (alError == AL_NO_ERROR) {
+             alSourcePlay(_alSource);
+        }
     }
     
     auto alError = alGetError();
