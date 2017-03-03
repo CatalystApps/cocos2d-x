@@ -100,11 +100,11 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
         {
             alcMakeContextCurrent(NULL);
         }
-        else if (reason == AVAudioSessionInterruptionTypeEnded)
+        else if (reason == AVAudioSessionInterruptionTypeEnded && ![self isExternalSoundsExist])
         {
             NSError *error = nil;
             BOOL success = [[AVAudioSession sharedInstance]
-                            setCategory: AVAudioSessionCategoryAmbient
+                            setCategory:AVAudioSessionCategoryAmbient
                             error: &error];
             if (!success)
             {
@@ -127,6 +127,10 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
         }
         [[AVAudioSession sharedInstance] setActive:YES error:&error];
         alcMakeContextCurrent(s_ALContext);
+    }
+    else if([self isExternalSoundsExist])
+    {
+        alcMakeContextCurrent(NULL);
     }
 }
 
