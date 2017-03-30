@@ -115,6 +115,8 @@ public:
      */
     CC_DEPRECATED_ATTRIBUTE const std::string& getResourceRootPath(void);
     
+    virtual std::string getDeviceModel() override;
+    
     void setStartupScriptFilename(const std::string& startupScriptFile);
     
     const std::string& getStartupScriptFilename(void);

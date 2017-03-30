@@ -28,7 +28,7 @@
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 
 #import <UIKit/UIKit.h>
-
+#import <sys/utsname.h>
 #import "math/CCGeometry.h"
 #import "CCDirectorCaller-ios.h"
 
@@ -156,6 +156,18 @@ bool Application::openURL(const std::string &url)
 
 void Application::applicationScreenSizeChanged(int newWidth, int newHeight) {
 
+}
+
+std::string Application::getDeviceModel()
+{
+    struct utsname system;
+    uname(&system);
+    return [[NSString stringWithCString:system.machine encoding:NSUTF8StringEncoding] UTF8String];
+}
+
+std::string Application::getSystemVersion()
+{
+    return [[[UIDevice currentDevice] systemVersion] UTF8String];
 }
 
 NS_CC_END

@@ -104,6 +104,9 @@ public:
     @param new height
     */
     virtual void applicationScreenSizeChanged(int newWidth, int newHeight);
+    
+    virtual std::string getDeviceModel() override;
+    virtual std::string getSystemVersion() override;
 
 protected:
     static Application * sm_pSharedApplication;
