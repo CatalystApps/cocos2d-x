@@ -206,6 +206,16 @@ void Application::applicationScreenSizeChanged(int newWidth, int newHeight) {
 
 }
 
+std::string Application::getDeviceModel()
+{
+    return JniHelper::callStaticStringMethod(helperClassName, "getDeviceModel");
+}
+
+std::string Application::getSystemVersion()
+{
+    return JniHelper::callStaticStringMethod(helperClassName, "getSystemVersion");
+}
+
 NS_CC_END
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID

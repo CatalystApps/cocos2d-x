@@ -176,8 +176,12 @@ public class Cocos2dxHelper {
         return Locale.getDefault().getLanguage();
     }
     
-    public static String getDeviceModel(){
-        return Build.MODEL;
+    public static String getDeviceModel() {
+        return Build.MANUFACTURER + "  " + Build.MODEL;
+    }
+
+    public static String getSystemVersion() {
+        return Build.VERSION.RELEASE;
     }
 
     public static AssetManager getAssetManager() {
