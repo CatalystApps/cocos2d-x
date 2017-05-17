@@ -212,9 +212,9 @@ EventDispatcher::EventDispatcher()
     _internalCustomListenerIDs.insert(EVENT_COME_TO_BACKGROUND);
     _internalCustomListenerIDs.insert(EVENT_RENDERER_RECREATED);
     
-    for(auto listener : _pausedListenerTypes)
+    for(int i = 0; i < _pausedListenerTypes.size(); ++i)
     {
-        listener = false;
+        _pausedListenerTypes[i] = false;
     }
 }
 
