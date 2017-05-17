@@ -212,10 +212,8 @@ EventDispatcher::EventDispatcher()
     _internalCustomListenerIDs.insert(EVENT_COME_TO_BACKGROUND);
     _internalCustomListenerIDs.insert(EVENT_RENDERER_RECREATED);
     
-    for(int i = 0; i < _pausedListenerTypes.size(); ++i)
-    {
-        _pausedListenerTypes[i] = false;
-    }
+    // #NAZAR request
+    _pausedListenerTypes.fill(false);
 }
 
 EventDispatcher::~EventDispatcher()
