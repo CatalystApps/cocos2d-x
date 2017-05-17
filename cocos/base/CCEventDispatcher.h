@@ -30,6 +30,7 @@
 #include <unordered_map>
 #include <vector>
 #include <set>
+#include <array>
 
 #include "platform/CCPlatformMacros.h"
 #include "base/CCEventListener.h"
@@ -138,6 +139,11 @@ public:
      * @param recursive True if resume recursively, the default value is false.
      */
     void resumeEventListenersForTarget(Node* target, bool recursive = false);
+    
+    /////////////////////////////////////////////
+    
+    void pauseEventListeners(EventListener::Type type);
+    void resumeEventListeners(EventListener::Type type);
     
     /////////////////////////////////////////////
     
@@ -327,6 +333,8 @@ protected:
 
     /** The nodes were associated with scene graph based priority listeners */
     std::set<Node*> _dirtyNodes;
+    
+    std::array<bool, EventListener::Type::MAX> _pausedListenerTypes;
     
     /** Whether the dispatcher is dispatching event */
     int _inDispatch;

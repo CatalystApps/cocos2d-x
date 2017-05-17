@@ -51,9 +51,9 @@ class CC_DLL EventListener : public Ref
 {
 public:
     /** Type Event type.*/
-    enum class Type
+    enum Type
     {
-        UNKNOWN,
+        UNKNOWN = 0,
         TOUCH_ONE_BY_ONE,
         TOUCH_ALL_AT_ONCE,
         KEYBOARD,
@@ -61,7 +61,8 @@ public:
         ACCELERATION,
         FOCUS,
 		GAME_CONTROLLER,
-        CUSTOM
+        CUSTOM,
+        MAX
     };
 
     typedef std::string ListenerID;

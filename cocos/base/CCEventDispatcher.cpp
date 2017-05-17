@@ -211,6 +211,11 @@ EventDispatcher::EventDispatcher()
     _internalCustomListenerIDs.insert(EVENT_COME_TO_FOREGROUND);
     _internalCustomListenerIDs.insert(EVENT_COME_TO_BACKGROUND);
     _internalCustomListenerIDs.insert(EVENT_RENDERER_RECREATED);
+    
+    for(auto listener : _pausedListenerTypes)
+    {
+        listener = false;
+    }
 }
 
 EventDispatcher::~EventDispatcher()
@@ -960,6 +965,10 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
     //
     if (oneByOneListeners)
     {
+        if(_pausedListenerTypes[EventListener::Type::TOUCH_ONE_BY_ONE])
+        {
+            return;
+        }
         auto mutableTouchesIter = mutableTouches.begin();
         auto touchesIter = originalTouches.begin();
         
@@ -1071,7 +1080,10 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
     //
     if (allAtOnceListeners && mutableTouches.size() > 0)
     {
-        
+        if(_pausedListenerTypes[EventListener::Type::TOUCH_ALL_AT_ONCE])
+        {
+            return;
+        }
         auto onTouchesEvent = [&](EventListener* l) -> bool{
             EventListenerTouchAllAtOnce* listener = static_cast<EventListenerTouchAllAtOnce*>(l);
             // Skip if the listener was removed.
@@ -1598,6 +1610,16 @@ void EventDispatcher::cleanToRemovedListeners()
     }
 
     _toRemovedListeners.clear();
+}
+
+void EventDispatcher::pauseEventListeners(EventListener::Type type)
+{
+    _pausedListenerTypes[type] = true;
+}
+
+void EventDispatcher::resumeEventListeners(EventListener::Type type)
+{
+    _pausedListenerTypes[type] = false;
 }
 
 NS_CC_END
