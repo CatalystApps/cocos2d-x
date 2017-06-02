@@ -221,7 +221,7 @@ inline static cocos2d::Rect flashBoundsToCocos(const cocos2d::Rect& bounds)
 {
     cocos2d::Rect result = bounds;
 
-    result.origin.y = result.getMaxY() * -1;
+    result.origin.y = result.getMaxY() * -1.f;
 
     return result;
 }
@@ -230,7 +230,7 @@ inline static cocos2d::Rect cocosBoundsToFlash(const cocos2d::Rect& bounds)
 {
     cocos2d::Rect result = bounds;
 
-    result.origin.y = (result.getMinY() + result.size.height) * -1;
+    result.origin.y = (result.getMinY() + result.size.height) * -1.f;
 
     return result;
 }
