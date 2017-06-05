@@ -357,13 +357,9 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
     glfwWindowHint(GLFW_STENCIL_BITS,_glContextAttrs.stencilBits);
 
     int needWidth = rect.size.width * _frameZoomFactor;
-    int neeHeight = rect.size.height * _frameZoomFactor;
+    int needHeight = rect.size.height * _frameZoomFactor;
 
-#if GLFW_VERSION_MAJOR <= 3
-    _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr);
-#else
-    _mainWindow = glfwCreateWindow(needWidth, neeHeight, _viewName.c_str(), _monitor, nullptr, 0);
-#endif
+    _mainWindow = glfwCreateWindow(needWidth, needHeight, _viewName.c_str(), _monitor, nullptr, 0);
 
     if (_mainWindow == nullptr)
     {
@@ -394,7 +390,7 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
     {
         rect.size.width = realW / _frameZoomFactor;
     }
-    if (realH != neeHeight)
+    if (realH != needHeight)
     {
         rect.size.height = realH / _frameZoomFactor;
     }
@@ -582,11 +578,11 @@ void GLViewImpl::updateFrameSize()
             {
                 _retinaFactor = 1;
             }
-#if !WITH_EDITOR
+
             windowWidth = _screenSize.width * _retinaFactor * _frameZoomFactor;
             windowHeight = _screenSize.height *_retinaFactor * _frameZoomFactor;
             glfwSetWindowSize(_mainWindow, windowWidth, windowHeight);
-#endif
+
             _isInRetinaMonitor = false;
         }
         Director::getInstance()->setViewportOutputSize(Size(windowWidth * _retinaFactor,

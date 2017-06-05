@@ -129,7 +129,6 @@ project.properties
 /external/*
 !/external/config.json
 /templates/lua-template-runtime/runtime
-/v*-deps-*.zip
 /v*-lua-runtime-*.zip
 /v*-console-*.zip
 /tools/fbx-conv/
