@@ -471,7 +471,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
 xcopy /Y /Q "$(ProjectDir)..\..\external\freetype2\prebuilt\win64\*.*" "$(OutDir)"
-xcopy /Y /Q "$(ProjectDir)..\..\external\glfw3\prebuilt\win64\Game\*.*" "$(OutDir)"
+xcopy /Y /Q "$(ProjectDir)..\..\external\glfw3\prebuilt\win64\*.*" "$(OutDir)"
 xcopy /Y /Q "$(ProjectDir)..\..\external\curl\prebuilt\win32\*.*" "$(OutDir)"
 xcopy /Y /Q "$(ProjectDir)..\..\external\jpeg\prebuilt\win32\*.*" "$(OutDir)"
 xcopy /Y /Q "$(ProjectDir)..\..\external\png\prebuilt\win64\*.*" "$(OutDir)"
