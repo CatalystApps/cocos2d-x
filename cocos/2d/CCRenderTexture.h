@@ -251,6 +251,8 @@ public:
      * @param isAutoDraw Whether or not render its children into the texture automatically.
      */
     inline void setAutoDraw(bool isAutoDraw) { _autoDraw = isAutoDraw; };
+    
+    void setAntiAliasing(bool enabled);
 
     /** Gets the Sprite being used. 
      *
@@ -340,6 +342,7 @@ protected:
     GLclampf     _clearDepth;
     GLint        _clearStencil;
     bool         _autoDraw;
+    bool         _enableAntiAliasing;
 
     /** The Sprite being used.
      The sprite, by default, will use the following blending function: GL_ONE, GL_ONE_MINUS_SRC_ALPHA.

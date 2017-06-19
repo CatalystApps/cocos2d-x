@@ -58,6 +58,7 @@ RenderTexture::RenderTexture()
 , _clearDepth(0.0f)
 , _clearStencil(0)
 , _autoDraw(false)
+, _enableAntiAliasing(false)
 , _sprite(nullptr)
 , _saveFileCallback(nullptr)
 {
@@ -130,11 +131,11 @@ void RenderTexture::listenToForeground(EventCustom *event)
     glGenFramebuffers(1, &_FBO);
     glBindFramebuffer(GL_FRAMEBUFFER, _FBO);
     
-    _texture->setAliasTexParameters();
+    _enableAntiAliasing ? _texture->setAntiAliasTexParameters() : _texture->setAliasTexParameters();
     
     if ( _textureCopy )
     {
-        _textureCopy->setAliasTexParameters();
+        _enableAntiAliasing ? _textureCopy->setAntiAliasTexParameters() : _textureCopy->setAliasTexParameters();
     }
     
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _texture->getName(), 0);
@@ -320,7 +321,7 @@ bool RenderTexture::initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat 
         // check if it worked (probably worth doing :) )
         CCASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Could not attach texture to framebuffer");
 
-        _texture->setAliasTexParameters();
+        _enableAntiAliasing ? _texture->setAntiAliasTexParameters() : _texture->setAliasTexParameters();
 
         // retained
         setSprite(Sprite::createWithTexture(_texture));
@@ -360,6 +361,18 @@ void RenderTexture::setVirtualViewport(const Vec2& rtBegin, const Rect& fullRect
     _fullRect = fullRect;
 
     _fullviewPort = fullViewport;
+}
+
+void RenderTexture::setAntiAliasing(bool enabled)
+{
+    _enableAntiAliasing = enabled;
+    
+    _enableAntiAliasing ? _texture->setAntiAliasTexParameters() : _texture->setAliasTexParameters();
+    
+    if ( _textureCopy )
+    {
+        _enableAntiAliasing ? _textureCopy->setAntiAliasTexParameters() : _textureCopy->setAliasTexParameters();
+    }
 }
 
 void RenderTexture::beginWithClear(float r, float g, float b, float a)
