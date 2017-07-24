@@ -375,6 +375,8 @@ public:
     virtual id getCocoaWindow() = 0;
 #endif /* (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) */
     
+    inline time_t getLastUserActionTime() { return _lastUserActionTime; }
+    
 protected:
     void updateDesignResolutionSize();
     
@@ -392,6 +394,8 @@ protected:
     float _scaleX;
     float _scaleY;
     ResolutionPolicy _resolutionPolicy;
+    
+    time_t _lastUserActionTime;
 };
 
 // end of platform group

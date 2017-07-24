@@ -103,6 +103,7 @@ GLView::GLView()
 : _scaleX(1.0f)
 , _scaleY(1.0f)
 , _resolutionPolicy(ResolutionPolicy::UNKNOWN)
+, _lastUserActionTime(time(NULL))
 {
 }
 
@@ -306,6 +307,8 @@ void GLView::handleTouchesBegin(int num, intptr_t ids[], float xs[], float ys[])
     touchEvent._eventCode = EventTouch::EventCode::BEGAN;
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->dispatchEvent(&touchEvent);
+    
+    _lastUserActionTime = time(NULL);
 }
 
 void GLView::handleTouchesMove(int num, intptr_t ids[], float xs[], float ys[])
