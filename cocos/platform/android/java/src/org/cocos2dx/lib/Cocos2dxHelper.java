@@ -37,6 +37,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.preference.PreferenceManager.OnActivityResultListener;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
@@ -389,6 +390,21 @@ public class Cocos2dxHelper {
             }
         }
         return -1;
+    }
+
+    public static float getPhysicalScreenSize() {
+        DisplayMetrics dm = new DisplayMetrics();
+        sActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        double x = (double) dm.widthPixels / (double) dm.xdpi;
+        double y = (double) dm.heightPixels / (double) dm.ydpi;
+        double screenInches = Math.sqrt(x*x + y*y);
+
+        return (float) screenInches;
+    }
+
+    public static boolean hasGSM() {
+        TelephonyManager manager = (TelephonyManager)sActivity.getSystemService(Context.TELEPHONY_SERVICE);
+        return manager.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
     }
     
     // ===========================================================
