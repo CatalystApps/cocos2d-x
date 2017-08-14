@@ -304,7 +304,11 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
     @Override
     protected void onSizeChanged(final int pNewSurfaceWidth, final int pNewSurfaceHeight, final int pOldSurfaceWidth, final int pOldSurfaceHeight) {
         if(!this.isInEditMode()) {
-            this.mCocos2dxRenderer.setScreenWidthAndHeight(pNewSurfaceWidth, pNewSurfaceHeight);
+            if(pNewSurfaceWidth < pNewSurfaceHeight) {
+                this.mCocos2dxRenderer.setScreenWidthAndHeight(pNewSurfaceHeight, pNewSurfaceWidth); // This should fix "Resolution problem while launching game through push notification from lock screen"
+            } else {
+                this.mCocos2dxRenderer.setScreenWidthAndHeight(pNewSurfaceWidth, pNewSurfaceHeight);
+            }
         }
     }
 
